@@ -1,12 +1,37 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\adam\\apschool\\spel-monogame1\\game-monogame1\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\adam\\apschool\\GameDev\\mygamedevgame20241106\\game-monogame1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{49090E2B-CE43-4738-BBDF-65A2149E4445}|game-monogame1\\game-monogame1.csproj|c:\\users\\adam\\apschool\\gamedev\\mygamedevgame20241106\\game-monogame1\\game-monogame1\\game1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{49090E2B-CE43-4738-BBDF-65A2149E4445}|game-monogame1\\game-monogame1.csproj|solutionrelative:game-monogame1\\game1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Game1.cs",
+              "DocumentMoniker": "C:\\Users\\adam\\apschool\\GameDev\\mygamedevgame20241106\\game-monogame1\\game-monogame1\\Game1.cs",
+              "RelativeDocumentMoniker": "game-monogame1\\Game1.cs",
+              "ToolTip": "C:\\Users\\adam\\apschool\\GameDev\\mygamedevgame20241106\\game-monogame1\\game-monogame1\\Game1.cs",
+              "RelativeToolTip": "game-monogame1\\Game1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T15:54:07.821Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

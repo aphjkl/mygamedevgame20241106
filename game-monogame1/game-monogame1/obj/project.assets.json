@@ -7537,11 +7537,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\adam\\apschool\\spel-monogame1\\game-monogame1\\game-monogame1\\game-monogame1.csproj",
+      "projectUniqueName": "C:\\Users\\adam\\apschool\\GameDev\\mygamedevgame20241106\\game-monogame1\\game-monogame1\\game-monogame1.csproj",
       "projectName": "game-monogame1",
-      "projectPath": "C:\\Users\\adam\\apschool\\spel-monogame1\\game-monogame1\\game-monogame1\\game-monogame1.csproj",
+      "projectPath": "C:\\Users\\adam\\apschool\\GameDev\\mygamedevgame20241106\\game-monogame1\\game-monogame1\\game-monogame1.csproj",
       "packagesPath": "C:\\Users\\adam\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\adam\\apschool\\spel-monogame1\\game-monogame1\\game-monogame1\\obj\\",
+      "outputPath": "C:\\Users\\adam\\apschool\\GameDev\\mygamedevgame20241106\\game-monogame1\\game-monogame1\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\adam\\AppData\\Roaming\\NuGet\\NuGet.Config",
