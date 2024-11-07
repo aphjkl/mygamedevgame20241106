@@ -5,6 +5,14 @@
     {
       "AbsoluteMoniker": "D:0:0:{49090E2B-CE43-4738-BBDF-65A2149E4445}|game-monogame1\\game-monogame1.csproj|c:\\users\\adam\\apschool\\gamedev\\mygamedevgame20241106\\game-monogame1\\game-monogame1\\game1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{49090E2B-CE43-4738-BBDF-65A2149E4445}|game-monogame1\\game-monogame1.csproj|solutionrelative:game-monogame1\\game1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{49090E2B-CE43-4738-BBDF-65A2149E4445}|game-monogame1\\game-monogame1.csproj|c:\\users\\adam\\apschool\\gamedev\\mygamedevgame20241106\\game-monogame1\\game-monogame1\\content\\sprite95.png||{58961B49-13E0-48C0-9258-13CBC4D40279}",
+      "RelativeMoniker": "D:0:0:{49090E2B-CE43-4738-BBDF-65A2149E4445}|game-monogame1\\game-monogame1.csproj|solutionrelative:game-monogame1\\content\\sprite95.png||{58961B49-13E0-48C0-9258-13CBC4D40279}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{49090E2B-CE43-4738-BBDF-65A2149E4445}|game-monogame1\\game-monogame1.csproj|c:\\users\\adam\\apschool\\gamedev\\mygamedevgame20241106\\game-monogame1\\game-monogame1\\content\\charactersheet.png||{58961B49-13E0-48C0-9258-13CBC4D40279}",
+      "RelativeMoniker": "D:0:0:{49090E2B-CE43-4738-BBDF-65A2149E4445}|game-monogame1\\game-monogame1.csproj|solutionrelative:game-monogame1\\content\\charactersheet.png||{58961B49-13E0-48C0-9258-13CBC4D40279}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,8 +22,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CharacterSheet.png",
+              "DocumentMoniker": "C:\\Users\\adam\\apschool\\GameDev\\mygamedevgame20241106\\game-monogame1\\game-monogame1\\Content\\CharacterSheet.png",
+              "RelativeDocumentMoniker": "game-monogame1\\Content\\CharacterSheet.png",
+              "ToolTip": "C:\\Users\\adam\\apschool\\GameDev\\mygamedevgame20241106\\game-monogame1\\game-monogame1\\Content\\CharacterSheet.png",
+              "RelativeToolTip": "game-monogame1\\Content\\CharacterSheet.png",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2024-11-07T13:26:35.032Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "sprite95.png",
+              "DocumentMoniker": "C:\\Users\\adam\\apschool\\GameDev\\mygamedevgame20241106\\game-monogame1\\game-monogame1\\Content\\sprite95.png",
+              "RelativeDocumentMoniker": "game-monogame1\\Content\\sprite95.png",
+              "ToolTip": "C:\\Users\\adam\\apschool\\GameDev\\mygamedevgame20241106\\game-monogame1\\game-monogame1\\Content\\sprite95.png",
+              "RelativeToolTip": "game-monogame1\\Content\\sprite95.png",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2024-11-07T13:26:10.097Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -24,7 +56,7 @@
               "RelativeDocumentMoniker": "game-monogame1\\Game1.cs",
               "ToolTip": "C:\\Users\\adam\\apschool\\GameDev\\mygamedevgame20241106\\game-monogame1\\game-monogame1\\Game1.cs",
               "RelativeToolTip": "game-monogame1\\Game1.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABAAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-06T15:54:07.821Z",
               "EditorCaption": ""

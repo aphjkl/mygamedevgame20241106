@@ -37,3 +37,4 @@ C:\Users\adam\apschool\GameDev\mygamedevgame20241106\game-monogame1\game-monogam
 C:\Users\adam\apschool\GameDev\mygamedevgame20241106\game-monogame1\game-monogame1\obj\Debug\net6.0-windows\game-monogame1.genruntimeconfig.cache
 C:\Users\adam\apschool\GameDev\mygamedevgame20241106\game-monogame1\game-monogame1\obj\Debug\net6.0-windows\ref\game-monogame1.dll
 C:\Users\adam\apschool\GameDev\mygamedevgame20241106\game-monogame1\game-monogame1\bin\Debug\net6.0-windows\Content\CharacterSheet.xnb
+C:\Users\adam\apschool\GameDev\mygamedevgame20241106\game-monogame1\game-monogame1\bin\Debug\net6.0-windows\Content\sprite95.xnb
