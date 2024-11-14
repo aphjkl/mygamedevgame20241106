@@ -11,13 +11,16 @@ namespace game_monogame1
         private GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
 
-        Texture2D spriteTexture;
-        int frameWidth;
-        int frameHeight;
-        int frameIndex = 0;
-        double timeElapsed;
-        double timeToUpdate = 0.1; // Time (in seconds) between frames
-        private int numberOfFrames = 7; // Replace 4 with the actual number of frames in your sprite sheet
+        private Texture2D texture;
+        private Rectangle deelRectangle;
+
+        private int moveOn_x = 0;
+        //int frameWidth;
+        //int frameHeight;
+        //int frameIndex = 0;
+        //double timeElapsed;
+        //double timeToUpdate = 0.1; // Time (in seconds) between frames
+        //private int numberOfFrames = 7; // Replace 4 with the actual number of frames in your sprite sheet
 
         public Game1()
         {
@@ -29,6 +32,7 @@ namespace game_monogame1
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            deelRectangle = new Rectangle(moveOn_x, 0, 190, 225);
 
             base.Initialize();
         }
@@ -40,26 +44,26 @@ namespace game_monogame1
             // TODO: use this.Content to load your game content here
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // Load your texture here (replace "yourSprite" with the actual file name)
-            spriteTexture = Content.Load<Texture2D>("sprite95");
+            texture = Content.Load<Texture2D>("CharacterSheet");
 
             // Set frame dimensions (assuming a grid of frames)
-            frameWidth = spriteTexture.Width / numberOfFrames; // e.g., if you have 4 frames, divide by 4
-            frameHeight = spriteTexture.Height; // Assuming a single row of frames
+            //frameWidth = spriteTexture.Width / numberOfFrames; // e.g., if you have 4 frames, divide by 4
+            //frameHeight = spriteTexture.Height; // Assuming a single row of frames
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            //    Exit();
 
             // TODO: Add your update logic heretimeElapsed += gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (timeElapsed > timeToUpdate)
-            {
-                frameIndex++;
-                frameIndex %= numberOfFrames; // Loop back to the first frame
-                timeElapsed -= timeToUpdate;
-            }
+            //if (timeElapsed > timeToUpdate)
+            //{
+            //    frameIndex++;
+            //    frameIndex %= numberOfFrames; // Loop back to the first frame
+            //    timeElapsed -= timeToUpdate;
+            //}
 
             base.Update(gameTime);
 
@@ -75,14 +79,20 @@ namespace game_monogame1
             spriteBatch.Begin();
 
             // Source rectangle for the current frame
-            Rectangle sourceRectangle = new Rectangle(frameIndex * frameWidth, 0, frameWidth, frameHeight);
-            spriteBatch.Draw(spriteTexture, new Vector2(100, 100), sourceRectangle, Color.White);
+            //Rectangle sourceRectangle = new Rectangle(frameIndex * frameWidth, 0, frameWidth, frameHeight);
+            spriteBatch.Draw(texture, new Vector2(10, 10),deelRectangle, Color.White);
 
             spriteBatch.End();
 
+
+            //deelRectangle = new Rectangle(moveOn_x, 0, 190, 225);
+            moveOn_x += 200;
+            if (moveOn_x > 1200)
+                moveOn_x = 0;
+
+            deelRectangle.X = moveOn_x;
             base.Draw(gameTime);
 
-            base.Draw(gameTime);
         }
     }
 }
