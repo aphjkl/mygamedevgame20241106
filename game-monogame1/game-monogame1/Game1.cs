@@ -12,9 +12,8 @@ namespace game_monogame1
         private SpriteBatch spriteBatch;
 
         private Texture2D texture;
-        private Rectangle deelRectangle;
-
-        private int moveOn_x = 0;
+        Hero hero;
+       
         //int frameWidth;
         //int frameHeight;
         //int frameIndex = 0;
@@ -32,7 +31,6 @@ namespace game_monogame1
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            deelRectangle = new Rectangle(moveOn_x, 0, 190, 225);
 
             base.Initialize();
         }
@@ -58,13 +56,7 @@ namespace game_monogame1
 
             // TODO: Add your update logic heretimeElapsed += gameTime.ElapsedGameTime.TotalSeconds;
 
-            //if (timeElapsed > timeToUpdate)
-            //{
-            //    frameIndex++;
-            //    frameIndex %= numberOfFrames; // Loop back to the first frame
-            //    timeElapsed -= timeToUpdate;
-            //}
-
+          
             base.Update(gameTime);
 
             base.Update(gameTime);
@@ -78,19 +70,12 @@ namespace game_monogame1
 
             spriteBatch.Begin();
 
-            // Source rectangle for the current frame
-            //Rectangle sourceRectangle = new Rectangle(frameIndex * frameWidth, 0, frameWidth, frameHeight);
-            spriteBatch.Draw(texture, new Vector2(10, 10),deelRectangle, Color.White);
-
+            
             spriteBatch.End();
 
 
             //deelRectangle = new Rectangle(moveOn_x, 0, 190, 225);
-            moveOn_x += 200;
-            if (moveOn_x > 1200)
-                moveOn_x = 0;
-
-            deelRectangle.X = moveOn_x;
+            
             base.Draw(gameTime);
 
         }

@@ -1,0 +1,6 @@
+C:\Users\adam\apschool\GameDev\mygamedevgame20241106\game-monogame1\game-monogame1\obj\Debug\net6.0-windows\game_monogame1.csproj.AssemblyReference.cache
+C:\Users\adam\apschool\GameDev\mygamedevgame20241106\game-monogame1\game-monogame1\obj\Debug\net6.0-windows\game_monogame1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\adam\apschool\GameDev\mygamedevgame20241106\game-monogame1\game-monogame1\obj\Debug\net6.0-windows\game_monogame1.AssemblyInfoInputs.cache
+C:\Users\adam\apschool\GameDev\mygamedevgame20241106\game-monogame1\game-monogame1\obj\Debug\net6.0-windows\game_monogame1.AssemblyInfo.cs
+C:\Users\adam\apschool\GameDev\mygamedevgame20241106\game-monogame1\game-monogame1\obj\Debug\net6.0-windows\game_monogame1.csproj.CoreCompileInputs.cache
+C:\Users\adam\apschool\GameDev\mygamedevgame20241106\game-monogame1\game-monogame1\obj\Debug\net6.0-windows\game_monogame1.sourcelink.json
