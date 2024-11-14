@@ -1,5 +1,0 @@
-C:\Users\adam\apschool\GameDev\mygamedevgame20241106\MyGame\MyGame\obj\Debug\net6.0-windows\MyGame.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\adam\apschool\GameDev\mygamedevgame20241106\MyGame\MyGame\obj\Debug\net6.0-windows\MyGame.AssemblyInfoInputs.cache
-C:\Users\adam\apschool\GameDev\mygamedevgame20241106\MyGame\MyGame\obj\Debug\net6.0-windows\MyGame.AssemblyInfo.cs
-C:\Users\adam\apschool\GameDev\mygamedevgame20241106\MyGame\MyGame\obj\Debug\net6.0-windows\MyGame.csproj.CoreCompileInputs.cache
-C:\Users\adam\apschool\GameDev\mygamedevgame20241106\MyGame\MyGame\obj\Debug\net6.0-windows\MyGame.sourcelink.json
