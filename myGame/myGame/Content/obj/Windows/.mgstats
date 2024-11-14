@@ -1,0 +1,3 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/adam/source/repos/myGame/myGame/Content/CharacterSheet.png","C:/Users/adam/source/repos/myGame/myGame/Content/bin/Windows/CharacterSheet.xnb","TextureProcessor","Texture2DContent",220534,1782085,0,2308396
+"C:/Users/adam/source/repos/myGame/myGame/Content/sprite95.png","C:/Users/adam/source/repos/myGame/myGame/Content/bin/Windows/sprite95.xnb","TextureProcessor","Texture2DContent",50210,524373,0,0145652
