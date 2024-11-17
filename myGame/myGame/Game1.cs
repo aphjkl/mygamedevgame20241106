@@ -30,7 +30,7 @@ namespace myGame
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            texture = Content.Load<Texture2D>("CharacterSheet");
+            texture = Content.Load<Texture2D>("goldenCat");
 
 
             InitializeGameObjects();

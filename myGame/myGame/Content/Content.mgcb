@@ -25,6 +25,18 @@
 /processorParam:TextureFormat=Color
 /build:CharacterSheet.png
 
+#begin goldenCat.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:goldenCat.png
+
 #begin sprite95.png
 /importer:TextureImporter
 /processor:TextureProcessor

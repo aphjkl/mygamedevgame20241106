@@ -17,3 +17,6 @@ build_property.RootNamespace = myGame
 build_property.ProjectDir = C:\Users\adam\apschool\GameDev\mygamedevgame20241106\myGame\myGame\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.CsWinRTUseWindowsUIXamlProjections = false
+build_property.EffectiveAnalysisLevelStyle = 6.0
+build_property.EnableCodeStyleSeverity = 

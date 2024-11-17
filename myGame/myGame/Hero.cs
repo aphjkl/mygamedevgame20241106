@@ -21,12 +21,18 @@ namespace myGame
         {
             heroTexture = texture;
             //deelRectangle = new Rectangle(moveOn_x, 0, 190, 225);
+            //512x256
+           //7
+
             animatie = new Animatie();
-            animatie.AddFrame(new AnimationFrame(new Rectangle(0, 0, 180, 247)));
-            animatie.AddFrame(new AnimationFrame(new Rectangle(180, 0, 180, 247)));
-            animatie.AddFrame(new AnimationFrame(new Rectangle(360, 0, 180, 247)));
-            animatie.AddFrame(new AnimationFrame(new Rectangle(540, 0, 180, 247)));
-            animatie.AddFrame(new AnimationFrame(new Rectangle(720, 0, 180, 247)));
+           // animatie.AddFrame(new AnimationFrame(new Rectangle(0, 0, 73, 64)));
+            animatie.AddFrame(new AnimationFrame(new Rectangle(1, 1, 68, 56)));
+            animatie.AddFrame(new AnimationFrame(new Rectangle(70, 1, 68, 56)));
+            animatie.AddFrame(new AnimationFrame(new Rectangle(1, 1, 68, 56)));
+            animatie.AddFrame(new AnimationFrame(new Rectangle(139, 1, 68, 56)));
+
+
+
         }
 
 
