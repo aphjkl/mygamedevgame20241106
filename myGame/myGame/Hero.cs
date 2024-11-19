@@ -2,11 +2,13 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using myGame.Animation;
+using myGame.Input;
 using myGame.interfaces;
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,8 +23,9 @@ namespace myGame
         Vector2 snelheid;
         Vector2 versnelling;
         Vector2 mouseVector;
+        IInputReader inputReader;
 
-        public Hero(Texture2D texture)
+        public Hero(Texture2D texture, IInputReader reader)
         {
             heroTexture = texture;
             animatie = new Animatie();
@@ -34,23 +37,18 @@ namespace myGame
             snelheid = new Vector2(1, 1);
             versnelling = new Vector2(0.1f, 0.1f);
 
-
-
+            
+            this.inputReader = reader;
         }
 
 
         public void Update(GameTime gameTime)
         {
-            var direction = Vector2.Zero;
-            KeyboardState state = Keyboard.GetState();
-            if (state.IsKeyDown(Keys.Left))
-                direction = new Vector2(-1, 0);
-                if(state.IsKeyDown(Keys.Right))
-                direction = new Vector2(1, 0);
 
+            var direction = inputReader.ReadInput();
             direction *= 4;
             position += direction;
-            //Move();
+            Move(GetMouseState());
             animatie.Update(gameTime);
         }
         private void Move()
@@ -70,25 +68,35 @@ namespace myGame
             direction = Vector2.Multiply(direction, 0.1f);
 
             snelheid += direction;
-            snelheid = Limit(snelheid,6);
-
+            snelheid = Limit(snelheid, 5);
             position += snelheid;
 
             if (position.X > 600 || position.X < 0)
             {
-                snelheid.X *= 1;
-                versnelling.X *= 1;
+                snelheid.X *= -1;
+                versnelling.X *= -1;
             }
 
             if (position.Y > 400 || position.Y < 0)
             {
-                snelheid.Y *= 1;
-                versnelling*= 1;
+                snelheid.Y *= -1;
+                versnelling *= -1;
             }
+        }
+
+        private Vector2 Limit(Vector2 vector, float limit)
+        {
+            if (vector.Length() > limit)
+            {
+                var ratio = limit / vector.Length();
+                vector.X *= ratio;
+                vector.Y *= ratio;
+            }
+            return vector;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-             spriteBatch.Draw(heroTexture, new Vector2(10, 10), animatie.CurrentFrame.SourceRectangle, Color.White,0, new Vector2(0,0),1.5f,SpriteEffects.None,0);
+             spriteBatch.Draw(heroTexture,position, animatie.CurrentFrame.SourceRectangle, Color.White,0, new Vector2(0,0),1.5f,SpriteEffects.None,0);
         }
     }
 }

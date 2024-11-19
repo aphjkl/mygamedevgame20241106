@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using myGame.Input;
 using System;
 
 namespace myGame
@@ -11,6 +12,7 @@ namespace myGame
         private SpriteBatch _spriteBatch;
         private Texture2D texture;
         Hero hero;
+
 
         public Game1()
         {
@@ -38,8 +40,8 @@ namespace myGame
 
         private void InitializeGameObjects()
         {
-            hero = new Hero(texture);
 
+            hero = new Hero(texture,new KeyboardReader());
         }
 
         protected override void Update(GameTime gameTime)
