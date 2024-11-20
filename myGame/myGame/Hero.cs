@@ -46,9 +46,12 @@ namespace myGame
         {
 
             var direction = inputReader.ReadInput();
-            direction *= 4;
-            position += direction;
-            Move(GetMouseState());
+            if (direction != Vector2.Zero)
+            {
+                direction *= 4;
+                position += direction;
+            }
+            //Move(GetMouseState());
             animatie.Update(gameTime);
         }
         private void Move()

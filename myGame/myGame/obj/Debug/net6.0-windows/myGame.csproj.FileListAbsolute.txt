@@ -79,3 +79,5 @@ C:\Users\adam\apschool\GameDev\mygamedevgame20241106\myGame\myGame\obj\Debug\net
 C:\Users\adam\apschool\GameDev\mygamedevgame20241106\myGame\myGame\obj\Debug\net6.0-windows\myGame.genruntimeconfig.cache
 C:\Users\adam\apschool\GameDev\mygamedevgame20241106\myGame\myGame\obj\Debug\net6.0-windows\ref\myGame.dll
 C:\Users\adam\apschool\GameDev\mygamedevgame20241106\myGame\myGame\bin\Debug\net6.0-windows\Content\goldenCat.xnb
+C:\Users\adam\apschool\GameDev\mygamedevgame20241106\myGame\myGame\bin\Debug\net6.0-windows\Content\Tile1.xnb
+C:\Users\adam\apschool\GameDev\mygamedevgame20241106\myGame\myGame\bin\Debug\net6.0-windows\Content\Tile2.xnb

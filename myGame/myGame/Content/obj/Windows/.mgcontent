@@ -4,10 +4,16 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/adam/source/repos/myGame/myGame/Content/CharacterSheet.png</File>
-    <File>C:/Users/adam/source/repos/myGame/myGame/Content/sprite95.png</File>
+    <File>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/myGame/myGame/Content/CharacterSheet.png</File>
+    <File>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/myGame/myGame/Content/goldenCat.png</File>
+    <File>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/myGame/myGame/Content/sprite95.png</File>
+    <File>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/myGame/myGame/Content/Tile1.png</File>
+    <File>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/myGame/myGame/Content/Tile2.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using myGame.Input;
+using myGame.TileMap;
 using System;
 
 namespace myGame
@@ -12,6 +13,7 @@ namespace myGame
         private SpriteBatch _spriteBatch;
         private Texture2D texture;
         Hero hero;
+        Map map;
 
 
         public Game1()
@@ -23,6 +25,7 @@ namespace myGame
 
         protected override void Initialize()
         {
+            map = new Map();
 
             base.Initialize();
         }
@@ -33,7 +36,15 @@ namespace myGame
 
             // TODO: use this.Content to load your game content here
             texture = Content.Load<Texture2D>("goldenCat");
+            Tiles.Content = Content;
 
+            map.Generate(new int[,]
+            {
+                { 0, 0, 0, 1 },
+                { 0, 0, 1, 2 },
+                { 0, 1, 2, 2 },
+                { 1, 2, 2, 2 },
+            }, 64);
 
             InitializeGameObjects();
         }
@@ -61,6 +72,7 @@ namespace myGame
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
+            map.Draw(_spriteBatch);
 
             hero.Draw(_spriteBatch);
 
