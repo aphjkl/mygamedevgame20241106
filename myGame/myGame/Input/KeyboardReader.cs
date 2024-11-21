@@ -25,6 +25,7 @@ namespace myGame.Input
                 direction.X -= 1;
             if (state.IsKeyDown(Keys.D))
                 direction.X += 1;
+           
 
             return direction;
         }

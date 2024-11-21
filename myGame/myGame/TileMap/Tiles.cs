@@ -16,16 +16,22 @@ namespace myGame.TileMap
         private Rectangle rectangle;
         private static ContentManager content;
 
-        public Rectangle Rectangle { get; set; }
+        
         public static ContentManager Content 
         {
             protected get { return content; }
             set { content = value; } 
         }
 
+        public Rectangle Rectangle
+        {
+             get { return rectangle; }
+            protected set { rectangle = value; } 
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, rectangle, Color.White);
+            spriteBatch.Draw(texture, Rectangle, Color.White);
         }
 
 

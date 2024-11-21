@@ -62,7 +62,10 @@ namespace myGame
 
             // TODO: Add your update logic here
             hero.Update(gameTime);
-
+            foreach (CollisionTiles tile in map.CollisionTiles)
+            {
+                hero.Collision(tile.Rectangle, map.Width, map.Height);
+            }
             base.Update(gameTime);
         }
 

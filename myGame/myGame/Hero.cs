@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using myGame.Animation;
 using myGame.Input;
 using myGame.interfaces;
-
+using myGame.TileMap;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +24,8 @@ namespace myGame
         Vector2 versnelling;
         Vector2 mouseVector;
         IInputReader inputReader;
+        Rectangle rectangle;
+        bool hasJumped = false;
 
         public Hero(Texture2D texture, IInputReader reader)
         {
@@ -53,7 +55,36 @@ namespace myGame
             }
             //Move(GetMouseState());
             animatie.Update(gameTime);
+            
         }
+        public void Collision(Rectangle newRectangle, int xOffset, int yOffset)
+        {
+            if(rectangle.TouchTopOf(newRectangle))
+            {
+                rectangle.Y = newRectangle.Y - rectangle.Height;
+                snelheid.Y = 0;
+                hasJumped = false;
+            }
+            if (rectangle.TouchLeftOf(newRectangle))
+            {
+                position.X = newRectangle.X - rectangle.Width - 2;
+            }
+            if (rectangle.TouchRightOf(newRectangle))
+            {
+                position.X = newRectangle.X + newRectangle.Width + 2;
+            }
+            if (rectangle.TouchBottomOf(newRectangle))
+            {
+                snelheid.Y = 1;
+            }
+
+            if (position.X < 0) position.X = 0;
+            if (position.X > xOffset - rectangle.Width) position.X = xOffset - rectangle.Width;
+            if (position.Y < 0) snelheid.Y = 1;
+            if (position.Y > yOffset - rectangle.Height) position.Y = yOffset - rectangle.Height;
+
+        }
+        
         private void Move()
         {
             position += snelheid;
