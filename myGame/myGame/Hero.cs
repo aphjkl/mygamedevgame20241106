@@ -28,6 +28,9 @@ namespace myGame
         bool hasJumped = false;
         private float gravity = 0.5f;
         private bool isGrounded;
+        private float jumpForce = -12f;
+        private float maxFallSpeed = 10f;
+        private bool isFacingRight = true;
 
         public Hero(Texture2D texture, IInputReader reader)
         {
@@ -45,24 +48,45 @@ namespace myGame
 
         public void Update(GameTime gameTime)
         {
+            var direction = inputReader.ReadInput();
+            
+            // Handle jumping
+            if (direction.Y < 0 && isGrounded)
+            {
+                snelheid.Y = jumpForce;
+                isGrounded = false;
+                System.Diagnostics.Debug.WriteLine("Jump initiated!");
+            }
+
+            // Apply gravity when not grounded
             if (!isGrounded)
             {
                 snelheid.Y += gravity;
+                if (snelheid.Y > maxFallSpeed)
+                    snelheid.Y = maxFallSpeed;
             }
 
-            var direction = inputReader.ReadInput();
-            if (direction != Vector2.Zero)
+            // Handle horizontal movement
+            if (direction.X != 0)
             {
-                direction *= 4;
+                direction.X *= 4;
                 position.X += direction.X;
+                isFacingRight = direction.X > 0;
+                animatie.Update(gameTime);
             }
 
+            // Apply velocity to position
             position += snelheid;
             
+            // Update rectangle position
             rectangle.X = (int)position.X;
             rectangle.Y = (int)position.Y;
-            
-            animatie.Update(gameTime);
+
+            // Reset isGrounded - moved to end of update
+            isGrounded = false;
+
+            // Debug output
+            System.Diagnostics.Debug.WriteLine($"IsGrounded: {isGrounded}, Velocity Y: {snelheid.Y}, Position Y: {position.Y}");
         }
 
         public void Collision(Rectangle newRectangle, int xOffset, int yOffset)
@@ -73,25 +97,27 @@ namespace myGame
                 position.Y = rectangle.Y;
                 snelheid.Y = 0;
                 isGrounded = true;
+                System.Diagnostics.Debug.WriteLine("Touching ground!"); // Debug line
             }
-            else
+            else if (rectangle.TouchBottomOf(newRectangle))
             {
-                isGrounded = false;
+                position.Y = newRectangle.Y + newRectangle.Height;
+                rectangle.Y = (int)position.Y;
+                snelheid.Y = 1;
             }
 
             if (rectangle.TouchLeftOf(newRectangle))
             {
                 position.X = newRectangle.X - rectangle.Width;
+                rectangle.X = (int)position.X;
             }
             if (rectangle.TouchRightOf(newRectangle))
             {
                 position.X = newRectangle.X + newRectangle.Width;
-            }
-            if (rectangle.TouchBottomOf(newRectangle))
-            {
-                snelheid.Y = 1;
+                rectangle.X = (int)position.X;
             }
 
+            // World bounds collision
             if (position.X < 0) position.X = 0;
             if (position.X > xOffset - rectangle.Width) position.X = xOffset - rectangle.Width;
             if (position.Y < 0) 
@@ -103,6 +129,7 @@ namespace myGame
             {
                 position.Y = yOffset - rectangle.Height;
                 isGrounded = true;
+                snelheid.Y = 0;
             }
         }
 
@@ -151,7 +178,9 @@ namespace myGame
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-             spriteBatch.Draw(heroTexture,position, animatie.CurrentFrame.SourceRectangle, Color.White,0, new Vector2(0,0),1.5f,SpriteEffects.None,0);
+            SpriteEffects effect = isFacingRight ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            spriteBatch.Draw(heroTexture, position, animatie.CurrentFrame.SourceRectangle, 
+                Color.White, 0, new Vector2(0,0), 1.0f, effect, 0);
         }
     }
 }

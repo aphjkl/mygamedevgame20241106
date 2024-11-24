@@ -11,7 +11,7 @@
         "projectName": "myGame",
         "projectPath": "C:\\Users\\adam\\apschool\\GameDev\\mygamedevgame20241106\\MyGame\\myGame\\myGame.csproj",
         "packagesPath": "C:\\Users\\adam\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\adam\\apschool\\GameDev\\mygamedevgame20241106\\myGame\\myGame\\obj\\",
+        "outputPath": "C:\\Users\\adam\\apschool\\GameDev\\mygamedevgame20241106\\MyGame\\myGame\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
