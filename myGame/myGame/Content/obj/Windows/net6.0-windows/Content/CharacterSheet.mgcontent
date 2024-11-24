@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/myGame/myGame/Content/CharacterSheet.png</SourceFile>
+  <SourceFile>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/MyGame/myGame/Content/CharacterSheet.png</SourceFile>
   <SourceTime>2024-11-06T17:04:40.9623004+01:00</SourceTime>
-  <DestFile>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/myGame/myGame/Content/bin/Windows/Content/CharacterSheet.xnb</DestFile>
-  <DestTime>2024-11-14T19:17:08.2529019+01:00</DestTime>
+  <DestFile>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/MyGame/myGame/Content/bin/Windows/Content/CharacterSheet.xnb</DestFile>
+  <DestTime>2024-11-24T21:24:53.2909189+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T13:44:56+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

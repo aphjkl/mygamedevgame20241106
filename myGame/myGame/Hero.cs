@@ -26,6 +26,8 @@ namespace myGame
         IInputReader inputReader;
         Rectangle rectangle;
         bool hasJumped = false;
+        private float gravity = 0.5f;
+        private bool isGrounded;
 
         public Hero(Texture2D texture, IInputReader reader)
         {
@@ -35,43 +37,55 @@ namespace myGame
             animatie.AddFrame(new AnimationFrame(new Rectangle(70, 1, 68, 56)));
             animatie.AddFrame(new AnimationFrame(new Rectangle(1, 1, 68, 56)));
             animatie.AddFrame(new AnimationFrame(new Rectangle(139, 1, 68, 56)));
-            position = new Vector2(10, 10);
-            snelheid = new Vector2(1, 1);
-            versnelling = new Vector2(0.1f, 0.1f);
-
-            
+            position = new Vector2(100, 100);
+            snelheid = new Vector2(0, 0);
+            rectangle = new Rectangle((int)position.X, (int)position.Y, 68, 56);
             this.inputReader = reader;
         }
 
-
         public void Update(GameTime gameTime)
         {
+            if (!isGrounded)
+            {
+                snelheid.Y += gravity;
+            }
 
             var direction = inputReader.ReadInput();
             if (direction != Vector2.Zero)
             {
                 direction *= 4;
-                position += direction;
+                position.X += direction.X;
             }
-            //Move(GetMouseState());
-            animatie.Update(gameTime);
+
+            position += snelheid;
             
+            rectangle.X = (int)position.X;
+            rectangle.Y = (int)position.Y;
+            
+            animatie.Update(gameTime);
         }
+
         public void Collision(Rectangle newRectangle, int xOffset, int yOffset)
         {
-            if(rectangle.TouchTopOf(newRectangle))
+            if (rectangle.TouchTopOf(newRectangle))
             {
                 rectangle.Y = newRectangle.Y - rectangle.Height;
+                position.Y = rectangle.Y;
                 snelheid.Y = 0;
-                hasJumped = false;
+                isGrounded = true;
             }
+            else
+            {
+                isGrounded = false;
+            }
+
             if (rectangle.TouchLeftOf(newRectangle))
             {
-                position.X = newRectangle.X - rectangle.Width - 2;
+                position.X = newRectangle.X - rectangle.Width;
             }
             if (rectangle.TouchRightOf(newRectangle))
             {
-                position.X = newRectangle.X + newRectangle.Width + 2;
+                position.X = newRectangle.X + newRectangle.Width;
             }
             if (rectangle.TouchBottomOf(newRectangle))
             {
@@ -80,11 +94,18 @@ namespace myGame
 
             if (position.X < 0) position.X = 0;
             if (position.X > xOffset - rectangle.Width) position.X = xOffset - rectangle.Width;
-            if (position.Y < 0) snelheid.Y = 1;
-            if (position.Y > yOffset - rectangle.Height) position.Y = yOffset - rectangle.Height;
-
+            if (position.Y < 0) 
+            {
+                position.Y = 0;
+                snelheid.Y = 0;
+            }
+            if (position.Y > yOffset - rectangle.Height) 
+            {
+                position.Y = yOffset - rectangle.Height;
+                isGrounded = true;
+            }
         }
-        
+
         private void Move()
         {
             position += snelheid;

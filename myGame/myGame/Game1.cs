@@ -19,6 +19,9 @@ namespace myGame
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
+            _graphics.PreferredBackBufferWidth = 800;
+            _graphics.PreferredBackBufferHeight = 480;
+            _graphics.ApplyChanges();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -40,10 +43,12 @@ namespace myGame
 
             map.Generate(new int[,]
             {
-                { 0, 0, 0, 1 },
-                { 0, 0, 1, 2 },
-                { 0, 1, 2, 2 },
-                { 1, 2, 2, 2 },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
             }, 64);
 
             InitializeGameObjects();
@@ -60,12 +65,14 @@ namespace myGame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
             hero.Update(gameTime);
-            foreach (CollisionTiles tile in map.CollisionTiles)
+            
+            // Check collision with all tiles
+            foreach (CollisionTiles tile in map.Tiles)
             {
                 hero.Collision(tile.Rectangle, map.Width, map.Height);
             }
+
             base.Update(gameTime);
         }
 

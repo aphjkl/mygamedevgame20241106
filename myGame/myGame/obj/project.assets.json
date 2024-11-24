@@ -7538,9 +7538,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\adam\\apschool\\GameDev\\mygamedevgame20241106\\myGame\\myGame\\myGame.csproj",
+      "projectUniqueName": "C:\\Users\\adam\\apschool\\GameDev\\mygamedevgame20241106\\MyGame\\myGame\\myGame.csproj",
       "projectName": "myGame",
-      "projectPath": "C:\\Users\\adam\\apschool\\GameDev\\mygamedevgame20241106\\myGame\\myGame\\myGame.csproj",
+      "projectPath": "C:\\Users\\adam\\apschool\\GameDev\\mygamedevgame20241106\\MyGame\\myGame\\myGame.csproj",
       "packagesPath": "C:\\Users\\adam\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\adam\\apschool\\GameDev\\mygamedevgame20241106\\myGame\\myGame\\obj\\",
       "projectStyle": "PackageReference",

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/myGame/myGame/Content/Tile2.png</SourceFile>
+  <SourceFile>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/MyGame/myGame/Content/Tile2.png</SourceFile>
   <SourceTime>2024-11-20T15:11:00.1329142+01:00</SourceTime>
-  <DestFile>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/myGame/myGame/Content/bin/Windows/Content/Tile2.xnb</DestFile>
-  <DestTime>2024-11-20T15:16:20.2049964+01:00</DestTime>
+  <DestFile>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/MyGame/myGame/Content/bin/Windows/Content/Tile2.xnb</DestFile>
+  <DestTime>2024-11-24T21:24:53.3613304+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T13:44:56+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KwZE7u/TJg8=",
+  "dgSpecHash": "69/FsaI1cgI=",
   "success": true,
-  "projectFilePath": "C:\\Users\\adam\\apschool\\GameDev\\mygamedevgame20241106\\myGame\\myGame\\myGame.csproj",
+  "projectFilePath": "C:\\Users\\adam\\apschool\\GameDev\\mygamedevgame20241106\\MyGame\\myGame\\myGame.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\adam\\.nuget\\packages\\libuv\\1.9.1\\libuv.1.9.1.nupkg.sha512",
     "C:\\Users\\adam\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\1.1.0\\microsoft.codeanalysis.analyzers.1.1.0.nupkg.sha512",
