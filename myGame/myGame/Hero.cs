@@ -36,7 +36,7 @@ namespace myGame
         {
             heroTexture = texture;
             animatie = new Animatie();
-            animatie.AddFrame(new AnimationFrame(new Rectangle(1, 1, 68, 56)));
+            animatie.AddFrame(new AnimationFrame(new Rectangle(1, 1, 68, 56)));//i want this frame to be used as a mc resting or not moving framedw
             animatie.AddFrame(new AnimationFrame(new Rectangle(70, 1, 68, 56)));
             animatie.AddFrame(new AnimationFrame(new Rectangle(1, 1, 68, 56)));
             animatie.AddFrame(new AnimationFrame(new Rectangle(139, 1, 68, 56)));
@@ -133,38 +133,6 @@ namespace myGame
             }
         }
 
-        private void Move()
-        {
-            position += snelheid;
-        }
-        private Vector2 GetMouseState()
-        {
-            MouseState state = Mouse.GetState();
-            mouseVector = new Vector2(state.X, state.Y);
-            return mouseVector;
-        }
-        private void Move(Vector2 mouse)
-        {
-            var direction = Vector2.Add(mouse,-position);
-            direction.Normalize();
-            direction = Vector2.Multiply(direction, 0.1f);
-
-            snelheid += direction;
-            snelheid = Limit(snelheid, 5);
-            position += snelheid;
-
-            if (position.X > 600 || position.X < 0)
-            {
-                snelheid.X *= -1;
-                versnelling.X *= -1;
-            }
-
-            if (position.Y > 400 || position.Y < 0)
-            {
-                snelheid.Y *= -1;
-                versnelling *= -1;
-            }
-        }
 
         private Vector2 Limit(Vector2 vector, float limit)
         {
@@ -178,7 +146,7 @@ namespace myGame
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            SpriteEffects effect = isFacingRight ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            SpriteEffects effect = isFacingRight ? SpriteEffects.FlipHorizontally : SpriteEffects.None ;
             spriteBatch.Draw(heroTexture, position, animatie.CurrentFrame.SourceRectangle, 
                 Color.White, 0, new Vector2(0,0), 1.0f, effect, 0);
         }

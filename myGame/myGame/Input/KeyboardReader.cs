@@ -16,14 +16,13 @@ namespace myGame.Input
             KeyboardState state = Keyboard.GetState();
             Vector2 direction = Vector2.Zero;
             
-            if (state.IsKeyDown(Keys.A))
+            if (state.IsKeyDown(Keys.A)||state.IsKeyDown(Keys.Left))
                 direction.X -= 1;
-            if (state.IsKeyDown(Keys.D))
+            if (state.IsKeyDown(Keys.D) || state.IsKeyDown(Keys.Right))
                 direction.X += 1;
-            if (state.IsKeyDown(Keys.W))
+            if (state.IsKeyDown(Keys.W)|| state.IsKeyDown(Keys.Space) || state.IsKeyDown(Keys.Up))
                 direction.Y -= 1;
-            if (state.IsKeyDown(Keys.Space))
-                direction.Y -= 1;
+            
 
             return direction;
         }
