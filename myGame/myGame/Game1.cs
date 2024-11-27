@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using myGame.Input;
 using myGame.TileMap;
+using myGame.Camera;
 using System;
 
 namespace myGame
@@ -14,6 +15,7 @@ namespace myGame
         private Texture2D texture;
         Hero hero;
         Map map;
+        private Camera2D camera;
 
 
         public Game1()
@@ -28,7 +30,14 @@ namespace myGame
 
         protected override void Initialize()
         {
+            // Create map first
             map = new Map();
+            
+            // Initialize camera with both viewport and world bounds
+            camera = new Camera2D(
+                new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight),
+                new Rectangle(0, 0, 1920, 1080) // Set this to your map's actual dimensions
+            );
 
             base.Initialize();
         }
@@ -41,16 +50,18 @@ namespace myGame
             texture = Content.Load<Texture2D>("goldenCat");
             Tiles.Content = Content;
 
-            map.Generate(new int[,]
+            // Load a larger map
+            int[,] mapData = new int[,]
             {
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-            }, 64);
-
+                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                { 0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
+            };
+            
+            map.LoadMap(mapData, 64);
             InitializeGameObjects();
         }
 
@@ -73,6 +84,10 @@ namespace myGame
                 hero.Collision(tile.Rectangle, map.Width, map.Height);
             }
 
+            // Update camera to follow hero
+            camera.Follow(hero.Position);
+            camera.UpdateMatrix();
+
             base.Update(gameTime);
         }
 
@@ -80,12 +95,11 @@ namespace myGame
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(transformMatrix: camera.Transform);
+            
             map.Draw(_spriteBatch);
-
             hero.Draw(_spriteBatch);
-
+            
             _spriteBatch.End();
 
             base.Draw(gameTime);

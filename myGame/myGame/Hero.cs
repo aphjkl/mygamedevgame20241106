@@ -40,7 +40,7 @@ namespace myGame
             animatie.AddFrame(new AnimationFrame(new Rectangle(70, 1, 68, 56)));
             animatie.AddFrame(new AnimationFrame(new Rectangle(1, 1, 68, 56)));
             animatie.AddFrame(new AnimationFrame(new Rectangle(139, 1, 68, 56)));
-            position = new Vector2(100, 100);
+            position = new Vector2(100, 10);
             snelheid = new Vector2(0, 0);
             rectangle = new Rectangle((int)position.X, (int)position.Y, 68, 56);
             this.inputReader = reader;
@@ -150,5 +150,7 @@ namespace myGame
             spriteBatch.Draw(heroTexture, position, animatie.CurrentFrame.SourceRectangle, 
                 Color.White, 0, new Vector2(0,0), 1.0f, effect, 0);
         }
+
+        public Vector2 Position => position;
     }
 }
