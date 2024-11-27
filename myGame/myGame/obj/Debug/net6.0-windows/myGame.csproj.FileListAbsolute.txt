@@ -81,3 +81,4 @@ C:\Users\adam\apschool\GameDev\mygamedevgame20241106\myGame\myGame\obj\Debug\net
 C:\Users\adam\apschool\GameDev\mygamedevgame20241106\myGame\myGame\bin\Debug\net6.0-windows\Content\goldenCat.xnb
 C:\Users\adam\apschool\GameDev\mygamedevgame20241106\myGame\myGame\bin\Debug\net6.0-windows\Content\Tile1.xnb
 C:\Users\adam\apschool\GameDev\mygamedevgame20241106\myGame\myGame\bin\Debug\net6.0-windows\Content\Tile2.xnb
+C:\Users\adam\apschool\GameDev\mygamedevgame20241106\MyGame\myGame\bin\Debug\net6.0-windows\Content\spriteEnemy-1.xnb

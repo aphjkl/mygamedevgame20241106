@@ -42,7 +42,7 @@ namespace myGame
             animatie.AddFrame(new AnimationFrame(new Rectangle(139, 1, 68, 56)));
             position = new Vector2(100, 10);
             snelheid = new Vector2(0, 0);
-            rectangle = new Rectangle((int)position.X, (int)position.Y, 68, 56);
+            rectangle = new Rectangle((int)position.X, (int)position.Y, 68, 46);
             this.inputReader = reader;
         }
 

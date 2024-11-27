@@ -5,6 +5,8 @@ using myGame.Input;
 using myGame.TileMap;
 using myGame.Camera;
 using System;
+using System.Collections.Generic;
+using myGame.GameObjects;
 
 namespace myGame
 {
@@ -16,7 +18,8 @@ namespace myGame
         Hero hero;
         Map map;
         private Camera2D camera;
-
+        private List<Enemy> enemies;
+        private Texture2D enemyTexture;
 
         public Game1()
         {
@@ -38,6 +41,8 @@ namespace myGame
                 new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight),
                 new Rectangle(0, 0, 1920, 1080) // Set this to your map's actual dimensions
             );
+
+            enemies = new List<Enemy>();
 
             base.Initialize();
         }
@@ -63,6 +68,9 @@ namespace myGame
             
             map.LoadMap(mapData, 64);
             InitializeGameObjects();
+
+            enemyTexture = Content.Load<Texture2D>("spriteEnemy-1");
+            enemies.Add(new Enemy(enemyTexture, new Vector2(300, 300)));
         }
 
         private void InitializeGameObjects()
@@ -88,6 +96,11 @@ namespace myGame
             camera.Follow(hero.Position);
             camera.UpdateMatrix();
 
+            foreach (var enemy in enemies)
+            {
+                enemy.Update(gameTime);
+            }
+
             base.Update(gameTime);
         }
 
@@ -99,6 +112,11 @@ namespace myGame
             
             map.Draw(_spriteBatch);
             hero.Draw(_spriteBatch);
+            
+            foreach (var enemy in enemies)
+            {
+                enemy.Draw(_spriteBatch);
+            }
             
             _spriteBatch.End();
 
