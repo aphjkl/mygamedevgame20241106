@@ -4,9 +4,11 @@ using Microsoft.Xna.Framework.Input;
 using myGame.Input;
 using myGame.TileMap;
 using myGame.Camera;
-using System;
+using myGame.GameStates;
 using System.Collections.Generic;
 using myGame.GameObjects;
+
+using myGame.UI;
 
 namespace myGame
 {
@@ -20,6 +22,9 @@ namespace myGame
         private Camera2D camera;
         private List<Enemy> enemies;
         private Texture2D enemyTexture;
+        private GameState currentState = GameState.StartScreen;
+        private StartScreen startScreen;
+        private SpriteFont font;
 
         public Game1()
         {
@@ -71,6 +76,9 @@ namespace myGame
 
             enemyTexture = Content.Load<Texture2D>("spriteEnemy-1");
             enemies.Add(new Enemy(enemyTexture, new Vector2(300, 300)));
+
+            font = Content.Load<SpriteFont>("gameFont"); // You'll need to create this
+            startScreen = new StartScreen(GraphicsDevice, font);
         }
 
         private void InitializeGameObjects()
@@ -81,6 +89,16 @@ namespace myGame
 
         protected override void Update(GameTime gameTime)
         {
+            if (currentState == GameState.StartScreen)
+            {
+                if (startScreen.HandleInput(Mouse.GetState()))
+                {
+                    currentState = GameState.Playing;
+                    ResetGame();
+                }
+                return;
+            }
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -99,9 +117,26 @@ namespace myGame
             foreach (var enemy in enemies)
             {
                 enemy.Update(gameTime);
+                if (enemy.CheckPlayerInRange(hero.Position))
+                {
+                    hero.TakeDamage(gameTime);
+                }
+            }
+
+            if (hero.Health <= 0)
+            {
+                currentState = GameState.StartScreen;
             }
 
             base.Update(gameTime);
+        }
+
+        private void ResetGame()
+        {
+            // Reset hero, enemies, etc.
+            InitializeGameObjects();
+            enemies.Clear();
+            enemies.Add(new Enemy(enemyTexture, new Vector2(300, 300)));
         }
 
         protected override void Draw(GameTime gameTime)

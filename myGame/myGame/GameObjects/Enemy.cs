@@ -15,6 +15,8 @@ namespace myGame.GameObjects
         private float patrolDistance = 300f;
         private float startX;
         private Animatie animation;
+        private bool isAttacking = false;
+        private float attackRange = 100f;
 
         public Enemy(Texture2D texture, Vector2 startPosition)
         {
@@ -40,18 +42,26 @@ namespace myGame.GameObjects
 
         public void Update(GameTime gameTime)
         {
-            // Basic patrol movement
-            if (movingRight)
+            if (!isAttacking)
             {
-                position.X += moveSpeed;
-                if (position.X >= startX + patrolDistance)
-                    movingRight = false;
+                // Basic patrol movement
+                if (movingRight)
+                {
+                    position.X += moveSpeed;
+                    if (position.X >= startX + patrolDistance)
+                        movingRight = false;
+                }
+                else
+                {
+                    position.X -= moveSpeed;
+                    if (position.X <= startX)
+                        movingRight = true;
+                }
             }
             else
             {
-                position.X -= moveSpeed;
-                if (position.X <= startX)
-                    movingRight = true;
+                // Attack animation
+                animation.Update(gameTime);
             }
 
             // Update rectangle position
@@ -70,5 +80,23 @@ namespace myGame.GameObjects
         }
 
         public Rectangle Bounds => rectangle;
+
+        public bool CheckPlayerInRange(Vector2 playerPosition)
+        {
+            float distance = Vector2.Distance(position, playerPosition);
+            if (distance <= attackRange && !isAttacking)
+            {
+                isAttacking = true;
+                // Change to attack animation frames
+                animation = new Animatie();
+                animation.AddFrame(new AnimationFrame(new Rectangle(82, 62, 74, 60))); // Adjust these based on your sprite
+                animation.AddFrame(new AnimationFrame(new Rectangle(151, 62, 74, 60)));
+                animation.AddFrame(new AnimationFrame(new Rectangle(78, 123, 74, 60)));
+                animation.AddFrame(new AnimationFrame(new Rectangle(1, 123, 74, 60)));
+                animation.AddFrame(new AnimationFrame(new Rectangle(78, 123, 74, 60)));
+                return true;
+            }
+            return false;
+        }
     }
 } 

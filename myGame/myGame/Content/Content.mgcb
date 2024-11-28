@@ -25,6 +25,11 @@
 /processorParam:TextureFormat=Color
 /build:../../../../../../Pictures/Screenshots/Tile1.png;Tile1.png
 
+#begin BungeeSpice-Regular.ttf
+/importer:
+/processor:
+/build:BungeeSpice-Regular.ttf
+
 #begin goldenCat.png
 /importer:TextureImporter
 /processor:TextureProcessor

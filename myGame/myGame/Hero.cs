@@ -31,6 +31,11 @@ namespace myGame
         private float jumpForce = -12f;
         private float maxFallSpeed = 10f;
         private bool isFacingRight = true;
+        private int maxHealth = 3;
+        private int currentHealth;
+        private float invulnerabilityTime = 1.5f;
+        private float invulnerabilityTimer = 0f;
+        private bool isInvulnerable = false;
 
         public Hero(Texture2D texture, IInputReader reader)
         {
@@ -44,6 +49,7 @@ namespace myGame
             snelheid = new Vector2(0, 0);
             rectangle = new Rectangle((int)position.X, (int)position.Y, 68, 46);
             this.inputReader = reader;
+            currentHealth = maxHealth;
         }
 
         public void Update(GameTime gameTime)
@@ -87,6 +93,15 @@ namespace myGame
 
             // Debug output
             System.Diagnostics.Debug.WriteLine($"IsGrounded: {isGrounded}, Velocity Y: {snelheid.Y}, Position Y: {position.Y}");
+
+            if (isInvulnerable)
+            {
+                invulnerabilityTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (invulnerabilityTimer <= 0)
+                {
+                    isInvulnerable = false;
+                }
+            }
         }
 
         public void Collision(Rectangle newRectangle, int xOffset, int yOffset)
@@ -152,5 +167,17 @@ namespace myGame
         }
 
         public Vector2 Position => position;
+
+        public void TakeDamage(GameTime gameTime)
+        {
+            if (!isInvulnerable)
+            {
+                currentHealth--;
+                isInvulnerable = true;
+                invulnerabilityTimer = invulnerabilityTime;
+            }
+        }
+
+        public int Health => currentHealth;
     }
 }
