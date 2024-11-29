@@ -4,55 +4,38 @@ using Microsoft.Xna.Framework.Input;
 
 namespace myGame.UI
 {
-    public class StartScreen
+    public class StartScreen : UIScreen
     {
-        private Texture2D buttonTexture;
-        private Rectangle buttonRect;
-        private SpriteFont font;
-        private string buttonText = "Start";
-        private Color buttonColor = Color.White;
+        private UIButton startButton;
 
         public StartScreen(GraphicsDevice graphicsDevice, SpriteFont font)
+            : base(new SpriteBatch(graphicsDevice), font)
         {
-            this.font = font;
-            // Create a simple button texture
-            buttonTexture = new Texture2D(graphicsDevice, 200, 50);
-            Color[] data = new Color[200 * 50];
-            for (int i = 0; i < data.Length; i++)
-                data[i] = Color.DarkGray;
-            buttonTexture.SetData(data);
-
-            // Center the button
-            buttonRect = new Rectangle(
-                graphicsDevice.Viewport.Width / 2 - 100,
-                graphicsDevice.Viewport.Height / 2 - 25,
-                200, 50);
+            // Create start button centered on screen
+            startButton = new UIButton(
+                graphicsDevice,
+                new Rectangle(
+                    graphicsDevice.Viewport.Width / 2 - 100,
+                    graphicsDevice.Viewport.Height / 2 - 25,
+                    200, 50
+                ),
+                "Start",
+                font
+            );
+            buttons.Add(startButton);
         }
 
         public bool HandleInput(MouseState mouseState)
         {
-            if (mouseState.LeftButton == ButtonState.Pressed && 
-                buttonRect.Contains(mouseState.Position))
-            {
-                return true;
-            }
-            return false;
+            return startButton.IsClicked(mouseState);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            // Draw button with a darker color for better visibility
-            buttonColor = Color.DarkGray;
-            spriteBatch.Draw(buttonTexture, buttonRect, buttonColor);
-            
-            Vector2 textSize = font.MeasureString(buttonText);
-            Vector2 textPosition = new Vector2(
-                buttonRect.X + (buttonRect.Width - textSize.X) / 2,
-                buttonRect.Y + (buttonRect.Height - textSize.Y) / 2
-            );
-            
-            // Draw text in white for better contrast
-            spriteBatch.DrawString(font, buttonText, textPosition, Color.White);
+            foreach (var button in buttons)
+            {
+                button.Draw(spriteBatch);
+            }
         }
     }
 } 
