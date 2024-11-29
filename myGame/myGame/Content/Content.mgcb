@@ -25,10 +25,12 @@
 /processorParam:TextureFormat=Color
 /build:../../../../../../Pictures/Screenshots/Tile1.png;Tile1.png
 
-#begin BungeeSpice-Regular.ttf
-/importer:
-/processor:
-/build:BungeeSpice-Regular.ttf
+#begin gameFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:gameFont.spritefont
 
 #begin goldenCat.png
 /importer:TextureImporter
