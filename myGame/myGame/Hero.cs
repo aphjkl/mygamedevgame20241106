@@ -92,7 +92,7 @@ namespace myGame
             isGrounded = false;
 
             // Debug output
-            System.Diagnostics.Debug.WriteLine($"IsGrounded: {isGrounded}, Velocity Y: {snelheid.Y}, Position Y: {position.Y}");
+            //System.Diagnostics.Debug.WriteLine($"IsGrounded: {isGrounded}, Velocity Y: {snelheid.Y}, Position Y: {position.Y}");
 
             if (isInvulnerable)
             {
@@ -112,7 +112,7 @@ namespace myGame
                 position.Y = rectangle.Y;
                 snelheid.Y = 0;
                 isGrounded = true;
-                System.Diagnostics.Debug.WriteLine("Touching ground!"); // Debug line
+                //System.Diagnostics.Debug.WriteLine("Touching ground!"); // Debug line
             }
             else if (rectangle.TouchBottomOf(newRectangle))
             {

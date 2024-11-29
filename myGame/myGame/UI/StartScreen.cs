@@ -41,6 +41,8 @@ namespace myGame.UI
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            // Draw button with a darker color for better visibility
+            buttonColor = Color.DarkGray;
             spriteBatch.Draw(buttonTexture, buttonRect, buttonColor);
             
             Vector2 textSize = font.MeasureString(buttonText);
@@ -49,7 +51,8 @@ namespace myGame.UI
                 buttonRect.Y + (buttonRect.Height - textSize.Y) / 2
             );
             
-            spriteBatch.DrawString(font, buttonText, textPosition, Color.Black);
+            // Draw text in white for better contrast
+            spriteBatch.DrawString(font, buttonText, textPosition, Color.White);
         }
     }
 } 

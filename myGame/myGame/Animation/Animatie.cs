@@ -41,5 +41,9 @@ namespace myGame.Animation
             }
 
         }
+        public bool IsAnimationComplete()
+        {
+            return counter >= frames.Count - 1;
+        }
     }
 }

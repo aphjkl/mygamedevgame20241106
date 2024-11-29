@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using myGame.Animation;
 using myGame.interfaces;
+using System;
 
 namespace myGame.GameObjects
 {
@@ -42,6 +43,18 @@ namespace myGame.GameObjects
 
         public void Update(GameTime gameTime)
         {
+            // Check if we should stop attacking
+            if (isAttacking)
+            {
+                animation.Update(gameTime);
+                // If animation completes one cycle, check if we should continue attacking
+                if (animation.IsAnimationComplete())
+                {
+                    isAttacking = false;
+                    InitializeAnimation(); // Reset to walking animation
+                }
+            }
+            
             if (!isAttacking)
             {
                 // Basic patrol movement
@@ -57,19 +70,12 @@ namespace myGame.GameObjects
                     if (position.X <= startX)
                         movingRight = true;
                 }
-            }
-            else
-            {
-                // Attack animation
                 animation.Update(gameTime);
             }
 
             // Update rectangle position
             rectangle.X = (int)position.X;
             rectangle.Y = (int)position.Y;
-
-            // Update animation
-            animation.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -94,6 +100,8 @@ namespace myGame.GameObjects
                 animation.AddFrame(new AnimationFrame(new Rectangle(78, 123, 74, 60)));
                 animation.AddFrame(new AnimationFrame(new Rectangle(1, 123, 74, 60)));
                 animation.AddFrame(new AnimationFrame(new Rectangle(78, 123, 74, 60)));
+                System.Diagnostics.Debug.WriteLine("Enemy attacking!");
+
                 return true;
             }
             return false;

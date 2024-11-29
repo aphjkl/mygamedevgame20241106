@@ -25,6 +25,7 @@ namespace myGame
         private GameState currentState = GameState.StartScreen;
         private StartScreen startScreen;
         private SpriteFont font;
+        private GameOverScreen gameOverScreen;
 
         public Game1()
         {
@@ -79,6 +80,7 @@ namespace myGame
 
             font = Content.Load<SpriteFont>("gameFont"); // You'll need to create this
             startScreen = new StartScreen(GraphicsDevice, font);
+            gameOverScreen = new GameOverScreen(GraphicsDevice, font);
         }
 
         private void InitializeGameObjects()
@@ -96,36 +98,50 @@ namespace myGame
                     currentState = GameState.Playing;
                     ResetGame();
                 }
-                return;
             }
-
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
-            hero.Update(gameTime);
-            
-            // Check collision with all tiles
-            foreach (CollisionTiles tile in map.Tiles)
+            else if (currentState == GameState.GameOver)
             {
-                hero.Collision(tile.Rectangle, map.Width, map.Height);
-            }
-
-            // Update camera to follow hero
-            camera.Follow(hero.Position);
-            camera.UpdateMatrix();
-
-            foreach (var enemy in enemies)
-            {
-                enemy.Update(gameTime);
-                if (enemy.CheckPlayerInRange(hero.Position))
+                string action = gameOverScreen.HandleInput(Mouse.GetState());
+                if (action == "replay")
                 {
-                    hero.TakeDamage(gameTime);
+                    currentState = GameState.Playing;
+                    ResetGame();
+                }
+                else if (action == "quit")
+                {
+                    Exit();
                 }
             }
-
-            if (hero.Health <= 0)
+            else if (currentState == GameState.Playing)
             {
-                currentState = GameState.StartScreen;
+                if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                    Exit();
+
+                hero.Update(gameTime);
+                
+                // Check collision with all tiles
+                foreach (CollisionTiles tile in map.Tiles)
+                {
+                    hero.Collision(tile.Rectangle, map.Width, map.Height);
+                }
+
+                // Update camera to follow hero
+                camera.Follow(hero.Position);
+                camera.UpdateMatrix();
+
+                foreach (var enemy in enemies)
+                {
+                    enemy.Update(gameTime);
+                    if (enemy.CheckPlayerInRange(hero.Position))
+                    {
+                        hero.TakeDamage(gameTime);
+                    }
+                }
+
+                if (hero.Health <= 0)
+                {
+                    currentState = GameState.GameOver;
+                }
             }
 
             base.Update(gameTime);
@@ -143,17 +159,30 @@ namespace myGame
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            _spriteBatch.Begin(transformMatrix: camera.Transform);
-            
-            map.Draw(_spriteBatch);
-            hero.Draw(_spriteBatch);
-            
-            foreach (var enemy in enemies)
+            if (currentState == GameState.StartScreen)
             {
-                enemy.Draw(_spriteBatch);
+                _spriteBatch.Begin();
+                startScreen.Draw(_spriteBatch);
+                _spriteBatch.End();
             }
-            
-            _spriteBatch.End();
+            else if (currentState == GameState.GameOver)
+            {
+                _spriteBatch.Begin();
+                gameOverScreen.Draw(_spriteBatch);
+                _spriteBatch.End();
+            }
+            else
+            {
+                _spriteBatch.Begin(transformMatrix: camera.Transform);
+                map.Draw(_spriteBatch);
+                hero.Draw(_spriteBatch);
+                
+                foreach (var enemy in enemies)
+                {
+                    enemy.Draw(_spriteBatch);
+                }
+                _spriteBatch.End();
+            }
 
             base.Draw(gameTime);
         }
