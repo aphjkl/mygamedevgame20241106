@@ -11,7 +11,7 @@ using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
-
+using myGame.Components;
 
 namespace myGame
 {
@@ -31,11 +31,7 @@ namespace myGame
         private float jumpForce = -12f;
         private float maxFallSpeed = 10f;
         private bool isFacingRight = true;
-        private int maxHealth = 3;
-        private int currentHealth;
-        private float invulnerabilityTime = 1.5f;
-        private float invulnerabilityTimer = 0f;
-        private bool isInvulnerable = false;
+        private HealthComponent healthComponent;
 
         public Hero(Texture2D texture, IInputReader reader)
         {
@@ -49,11 +45,12 @@ namespace myGame
             snelheid = new Vector2(0, 0);
             rectangle = new Rectangle((int)position.X, (int)position.Y, 68, 46);
             this.inputReader = reader;
-            currentHealth = maxHealth;
+            healthComponent = new HealthComponent();
         }
 
         public void Update(GameTime gameTime)
         {
+            healthComponent.Update(gameTime);
             var direction = inputReader.ReadInput();
             
             // Handle jumping
@@ -93,15 +90,6 @@ namespace myGame
 
             // Debug output
             //System.Diagnostics.Debug.WriteLine($"IsGrounded: {isGrounded}, Velocity Y: {snelheid.Y}, Position Y: {position.Y}");
-
-            if (isInvulnerable)
-            {
-                invulnerabilityTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-                if (invulnerabilityTimer <= 0)
-                {
-                    isInvulnerable = false;
-                }
-            }
         }
 
         public void Collision(Rectangle newRectangle, int xOffset, int yOffset)
@@ -170,23 +158,16 @@ namespace myGame
 
         public void TakeDamage(GameTime gameTime)
         {
-            if (!isInvulnerable)
-            {
-                currentHealth--;
-                isInvulnerable = true;
-                invulnerabilityTimer = invulnerabilityTime;
-            }
+            healthComponent.TakeDamage();
         }
 
-        public int Health => currentHealth;
+        public int Health => healthComponent.Health;
 
         public void Reset()
         {
             position = new Vector2(100, 10);  // Initial position from constructor
             snelheid = new Vector2(0, 0);     // Reset velocity
-            currentHealth = maxHealth;         // Reset health
-            isInvulnerable = false;           // Reset invulnerability
-            invulnerabilityTimer = 0f;        // Reset timer
+            healthComponent.Reset();         // Reset health
         }
     }
 }
