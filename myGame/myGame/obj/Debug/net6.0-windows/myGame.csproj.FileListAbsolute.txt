@@ -83,3 +83,4 @@ C:\Users\adam\apschool\GameDev\mygamedevgame20241106\MyGame\myGame\obj\Debug\net
 C:\Users\adam\apschool\GameDev\mygamedevgame20241106\MyGame\myGame\obj\Debug\net6.0-windows\myGame.pdb
 C:\Users\adam\apschool\GameDev\mygamedevgame20241106\MyGame\myGame\obj\Debug\net6.0-windows\myGame.genruntimeconfig.cache
 C:\Users\adam\apschool\GameDev\mygamedevgame20241106\MyGame\myGame\obj\Debug\net6.0-windows\ref\myGame.dll
+C:\Users\adam\apschool\GameDev\mygamedevgame20241106\MyGame\myGame\bin\Debug\net6.0-windows\Content\heart-icon123.xnb

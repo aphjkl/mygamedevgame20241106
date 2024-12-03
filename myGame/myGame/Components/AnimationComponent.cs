@@ -9,6 +9,8 @@ public class AnimationComponent
     private Animatie currentAnimation;
     private Dictionary<string, Animatie> animations;
     private bool isFacingRight;
+    private bool isJumping;
+    private bool isLanding;
     
     public bool IsFacingRight
     {
@@ -38,6 +40,18 @@ public class AnimationComponent
         walkAnimation.AddFrame(new AnimationFrame(new Rectangle(139, 1, 68, 56)));
         animations["walk"] = walkAnimation;
 
+        // New jump animation
+        var jumpAnimation = new Animatie();
+        jumpAnimation.AddFrame(new AnimationFrame(new Rectangle(70, 115, 68, 56)));
+
+        animations["jump"] = jumpAnimation;
+
+        // New landing animation
+        var landAnimation = new Animatie();
+        landAnimation.AddFrame(new AnimationFrame(new Rectangle(139, 58, 68, 56))); 
+        landAnimation.AddFrame(new AnimationFrame(new Rectangle(1, 115, 68, 56))); 
+        animations["land"] = landAnimation;
+
         currentAnimation = animations["idle"];
     }
 
@@ -49,13 +63,27 @@ public class AnimationComponent
         }
     }
 
-    public void Update(GameTime gameTime, bool isMoving)
+    public void Update(GameTime gameTime, bool isMoving, bool isInAir, bool wasInAir)
     {
-        PlayAnimation(isMoving ? "walk" : "idle");
-        if (isMoving)
+        // Handle jump/land animations
+        if (isInAir)
         {
-            currentAnimation.Update(gameTime);
+            PlayAnimation("jump");
         }
+        else if (wasInAir) // Just landed
+        {
+            PlayAnimation("land");
+            if (currentAnimation.IsAnimationComplete())
+            {
+                PlayAnimation(isMoving ? "walk" : "idle");
+            }
+        }
+        else // Normal ground animations
+        {
+            PlayAnimation(isMoving ? "walk" : "idle");
+        }
+
+        currentAnimation.Update(gameTime);
     }
 
     public void Draw(SpriteBatch spriteBatch, Vector2 position)

@@ -112,5 +112,21 @@ namespace myGame.Components
             velocity = Vector2.Zero;
             isGrounded = false;
         }
+
+        public bool IsCollidingWithEnemy(Rectangle enemyBounds, bool isJumping)
+        {
+            if (bounds.Intersects(enemyBounds))
+            {
+                // If hero is falling onto enemy from above
+                if (isJumping && velocity.Y > 0 && 
+                    bounds.Bottom > enemyBounds.Top && 
+                    bounds.Bottom < enemyBounds.Top + bounds.Height/2)
+                {
+                    velocity.Y = jumpForce * 0.7f; // Bounce off enemy
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

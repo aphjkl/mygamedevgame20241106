@@ -4,6 +4,7 @@ using myGame.Camera;
 using myGame.GameObjects;
 using myGame.Input;
 using myGame.TileMap;
+using myGame.UI;
 using System.Collections.Generic;
 
 namespace myGame.GameStates
@@ -14,6 +15,7 @@ namespace myGame.GameStates
         private Map map;
         private List<Enemy> enemies;
         private Camera2D camera;
+        private HealthDisplay healthDisplay;
 
         public PlayingState(Game1 game) : base(game)
         {
@@ -44,6 +46,11 @@ namespace myGame.GameStates
             enemies = new List<Enemy>();
             enemies.Add(new Enemy(game.Content.Load<Texture2D>("spriteEnemy-1"), new Vector2(300, 300)));
             enemies.Add(new Enemy(game.Content.Load<Texture2D>("spriteEnemy-1"), new Vector2(500, 300)));
+
+            healthDisplay = new HealthDisplay(
+                game.Content.Load<Texture2D>("heart-icon123"),
+                new Vector2(game.GraphicsDevice.Viewport.Width - 200, 20)
+            );
         }
 
         public override void Draw()
@@ -55,6 +62,11 @@ namespace myGame.GameStates
             {
                 enemy.Draw(spriteBatch);
             }
+            spriteBatch.End();
+
+            // Draw UI without camera transform
+            spriteBatch.Begin();
+            healthDisplay.Draw(spriteBatch, hero.Health);
             spriteBatch.End();
         }
 
@@ -71,10 +83,22 @@ namespace myGame.GameStates
             camera.Follow(hero.Position);
             camera.UpdateMatrix();
 
-            foreach (var enemy in enemies)
+            for (int i = enemies.Count - 1; i >= 0; i--)
             {
+                var enemy = enemies[i];
                 enemy.Update(gameTime);
-                if (enemy.CheckPlayerInRange(hero.Position))
+                
+                bool enemyKilled = hero.CheckEnemyCollision(enemy.Bounds);
+                bool playerInRange = enemy.CheckPlayerInRange(hero.Position);
+                
+                // If hero successfully jumped on enemy
+                if (enemyKilled)
+                {
+                    enemies.RemoveAt(i);
+                    continue;
+                }
+                // Only check for damage if hero didn't kill the enemy AND is in range
+                else if (playerInRange && !enemyKilled)
                 {
                     hero.TakeDamage(gameTime);
                 }
@@ -90,10 +114,11 @@ namespace myGame.GameStates
         {
             // Reset game state when entering
             hero.Reset();
-            foreach (var enemy in enemies)
-            {
-                enemy.Reset();
-            }
+            
+            // Clear and recreate enemies list
+            enemies.Clear();
+            enemies.Add(new Enemy(gameRef.Content.Load<Texture2D>("spriteEnemy-1"), new Vector2(300, 300)));
+            enemies.Add(new Enemy(gameRef.Content.Load<Texture2D>("spriteEnemy-1"), new Vector2(500, 300)));
         }
 
         public override void Exit()

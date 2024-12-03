@@ -22,6 +22,7 @@ namespace myGame
         private AnimationComponent animationComponent;
         private IInputReader inputReader;
         private Vector2 startPosition = new Vector2(100, 10);
+        private bool wasInAir;
 
         public Vector2 Position => physicsComponent.Position;
         public int Health => healthComponent.Health;
@@ -42,6 +43,7 @@ namespace myGame
         public void Update(GameTime gameTime)
         {
             var direction = inputReader.ReadInput();
+            bool isInAir = !physicsComponent.IsGrounded;
             
             if (direction.Y < 0)
             {
@@ -56,7 +58,9 @@ namespace myGame
 
             physicsComponent.Update(gameTime);
             healthComponent.Update(gameTime);
-            animationComponent.Update(gameTime, direction.X != 0);
+            animationComponent.Update(gameTime, direction.X != 0, isInAir, wasInAir);
+            
+            wasInAir = isInAir;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -78,6 +82,11 @@ namespace myGame
         {
             physicsComponent.Reset(startPosition);
             healthComponent.Reset();
+        }
+
+        public bool CheckEnemyCollision(Rectangle enemyBounds)
+        {
+            return physicsComponent.IsCollidingWithEnemy(enemyBounds, !physicsComponent.IsGrounded);
         }
     }
 }
