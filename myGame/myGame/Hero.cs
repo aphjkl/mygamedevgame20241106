@@ -180,6 +180,13 @@ namespace myGame
 
         public int Health => currentHealth;
 
-       
+        public void Reset()
+        {
+            position = new Vector2(100, 10);  // Initial position from constructor
+            snelheid = new Vector2(0, 0);     // Reset velocity
+            currentHealth = maxHealth;         // Reset health
+            isInvulnerable = false;           // Reset invulnerability
+            invulnerabilityTimer = 0f;        // Reset timer
+        }
     }
 }

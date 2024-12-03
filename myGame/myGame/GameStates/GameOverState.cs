@@ -1,5 +1,6 @@
-/*using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using myGame.UI;
 
 namespace myGame.GameStates
@@ -7,42 +8,42 @@ namespace myGame.GameStates
     public class GameOverState : BaseGameState
     {
         private GameOverScreen gameOverScreen;
-        private SpriteBatch spriteBatch;
 
         public GameOverState(Game1 game) : base(game)
         {
-            spriteBatch = new SpriteBatch(game.GraphicsDevice);
             gameOverScreen = new GameOverScreen(game.GraphicsDevice, game.Services.GetService<SpriteFont>());
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw()
         {
             spriteBatch.Begin();
             gameOverScreen.Draw(spriteBatch);
             spriteBatch.End();
         }
 
-        public override void Enter()
-        {
-            // Initialize game over state
-        }
-
-        public override void Exit()
-        {
-            // Cleanup game over state
-        }
-
         public override void Update(GameTime gameTime)
         {
-            string action = gameOverScreen.HandleInput(Microsoft.Xna.Framework.Input.Mouse.GetState());
+            gameOverScreen.Update(gameTime);
+            string action = gameOverScreen.HandleInput(Mouse.GetState());
+            
             if (action == "replay")
             {
-                gameRef.StateManager.SwitchState("Playing");
+                gameRef.StateManager.SetState(GameState.Playing);
             }
             else if (action == "quit")
             {
                 gameRef.Exit();
             }
         }
+
+        public override void Enter()
+        {
+            // Initialize game over state if needed
+        }
+
+        public override void Exit()
+        {
+            // Cleanup if needed
+        }
     }
-} */
+}

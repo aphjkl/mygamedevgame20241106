@@ -1,5 +1,6 @@
-/*using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using myGame.UI;
 using System.Collections.Generic;
 
@@ -8,35 +9,36 @@ namespace myGame.GameStates
     public class MenuState : BaseGameState
     {
         private StartScreen startScreen;
-        private SpriteBatch spriteBatch;
 
         public MenuState(Game1 game) : base(game)
         {
-            spriteBatch = new SpriteBatch(game.GraphicsDevice);
             startScreen = new StartScreen(game.GraphicsDevice, game.Services.GetService<SpriteFont>());
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw()
         {
+            spriteBatch.Begin();
             startScreen.Draw(spriteBatch);
+            spriteBatch.End();
         }
 
         public override void Enter()
         {
-            // Initialize menu state
+            // Initialize menu state if needed
         }
 
         public override void Exit()
         {
-            // Cleanup menu state
+            // Cleanup menu state if needed
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (startScreen.HandleInput(Microsoft.Xna.Framework.Input.Mouse.GetState()))
+            startScreen.Update(gameTime);
+            if (startScreen.HandleInput(Mouse.GetState()))
             {
-                gameRef.StateManager.SwitchState("Playing");
+                gameRef.StateManager.SetState(GameState.Playing);
             }
         }
     }
-} */
+}

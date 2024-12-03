@@ -106,5 +106,13 @@ namespace myGame.GameObjects
             }
             return false;
         }
+
+        public void Reset()
+        {
+            position = new Vector2(startX, position.Y);  // Reset to start X position
+            movingRight = true;                         // Reset direction
+            isAttacking = false;                        // Reset attack state
+            InitializeAnimation();                      // Reset animation
+        }
     }
 } 

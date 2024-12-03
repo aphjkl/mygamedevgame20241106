@@ -30,12 +30,5 @@ namespace myGame.UI
             return startButton.IsClicked(mouseState);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            foreach (var button in buttons)
-            {
-                button.Draw(spriteBatch);
-            }
-        }
     }
 } 
