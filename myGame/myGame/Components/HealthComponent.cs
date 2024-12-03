@@ -58,5 +58,11 @@ namespace myGame.Components{
             invulnerabilityTimer = 0f;
             OnHealthChanged?.Invoke();
         }
+
+        public void MakeInvulnerable(float duration)
+        {
+            isInvulnerable = true;
+            invulnerabilityTimer = duration;
+        }
     } 
 }

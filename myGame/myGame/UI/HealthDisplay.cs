@@ -8,8 +8,8 @@ namespace myGame.UI
         private Texture2D heartTexture;
         private Vector2 position;
         private int maxHearts;
-        private float scale = 2f;
-        private int padding = 10;
+        private float scale = 0.07f;
+        private int padding = 5;
 
         public HealthDisplay(Texture2D heartTexture, Vector2 position, int maxHearts = 3)
         {
@@ -24,21 +24,13 @@ namespace myGame.UI
             
             for (int i = 0; i < maxHearts; i++)
             {
-                Rectangle sourceRect;
-                if (i < currentHealth)
-                {
-                    sourceRect = new Rectangle(0, 0, 16, 16); // Full heart
-                }
-                else
-                {
-                    sourceRect = new Rectangle(16, 0, 16, 16); // Empty heart
-                }
+                float opacity = i < currentHealth ? 1f : 0.3f;
 
                 spriteBatch.Draw(
                     heartTexture,
                     currentPos,
-                    sourceRect,
-                    Color.White,
+                    null,
+                    Color.White * opacity,
                     0f,
                     Vector2.Zero,
                     scale,
@@ -46,7 +38,7 @@ namespace myGame.UI
                     0f
                 );
 
-                currentPos.X += (16 * scale) + padding;
+                currentPos.X += (heartTexture.Width * scale) + padding;
             }
         }
     }

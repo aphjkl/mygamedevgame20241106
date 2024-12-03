@@ -18,6 +18,8 @@ namespace myGame.GameObjects
         private Animatie animation;
         private bool isAttacking = false;
         private float attackRange = 100f;
+        private float deathTimer = 0.2f;
+        private bool isDying = false;
 
         public Enemy(Texture2D texture, Vector2 startPosition)
         {
@@ -43,7 +45,12 @@ namespace myGame.GameObjects
 
         public void Update(GameTime gameTime)
         {
-            // Check if we should stop attacking
+            if (isDying)
+            {
+                deathTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                return; // Don't do anything else while dying
+            }
+
             if (isAttacking)
             {
                 animation.Update(gameTime);
@@ -89,19 +96,26 @@ namespace myGame.GameObjects
 
         public bool CheckPlayerInRange(Vector2 playerPosition)
         {
-            float distance = Vector2.Distance(position, playerPosition);
-            if (distance <= attackRange && !isAttacking)
+            if (isDying || isAttacking) return false;
+
+            float verticalDistance = Math.Abs(position.Y - playerPosition.Y);
+            float horizontalDistance = Math.Abs(position.X - playerPosition.X);
+            
+            bool isPlayerInFront = (movingRight && playerPosition.X > position.X) || 
+                                  (!movingRight && playerPosition.X < position.X);
+            
+            if (horizontalDistance <= attackRange && 
+                verticalDistance < 30 && 
+                isPlayerInFront)
             {
                 isAttacking = true;
-                // Change to attack animation frames
                 animation = new Animatie();
-                animation.AddFrame(new AnimationFrame(new Rectangle(82, 62, 74, 60))); // Adjust these based on your sprite
+                animation.AddFrame(new AnimationFrame(new Rectangle(82, 62, 74, 60)));
                 animation.AddFrame(new AnimationFrame(new Rectangle(151, 62, 74, 60)));
                 animation.AddFrame(new AnimationFrame(new Rectangle(78, 123, 74, 60)));
                 animation.AddFrame(new AnimationFrame(new Rectangle(1, 123, 74, 60)));
                 animation.AddFrame(new AnimationFrame(new Rectangle(78, 123, 74, 60)));
-                System.Diagnostics.Debug.WriteLine("Enemy attacking!");
-
+                
                 return true;
             }
             return false;
@@ -113,6 +127,13 @@ namespace myGame.GameObjects
             movingRight = true;                         // Reset direction
             isAttacking = false;                        // Reset attack state
             InitializeAnimation();                      // Reset animation
+        }
+
+        public bool IsDying => isDying;
+
+        public void OnBeingJumpedOn()
+        {
+            isDying = true;
         }
     }
 } 

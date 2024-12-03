@@ -49,7 +49,7 @@ namespace myGame.GameStates
 
             healthDisplay = new HealthDisplay(
                 game.Content.Load<Texture2D>("heart-icon123"),
-                new Vector2(game.GraphicsDevice.Viewport.Width - 200, 20)
+                new Vector2(game.GraphicsDevice.Viewport.Width - 150, 20)
             );
         }
 
@@ -88,17 +88,23 @@ namespace myGame.GameStates
                 var enemy = enemies[i];
                 enemy.Update(gameTime);
                 
-                bool enemyKilled = hero.CheckEnemyCollision(enemy.Bounds);
-                bool playerInRange = enemy.CheckPlayerInRange(hero.Position);
-                
-                // If hero successfully jumped on enemy
-                if (enemyKilled)
+                // First check if enemy is already dying
+                if (enemy.IsDying)
                 {
                     enemies.RemoveAt(i);
                     continue;
                 }
-                // Only check for damage if hero didn't kill the enemy AND is in range
-                else if (playerInRange && !enemyKilled)
+
+                // Then check for successful jump collision
+                bool enemyKilled = hero.CheckEnemyCollision(enemy);
+                if (enemyKilled)
+                {
+                    hero.MakeInvulnerable(0.5f);
+                    continue;
+                }
+
+                // Only check for damage if hero isn't invulnerable and enemy isn't dying
+                if (!hero.IsInvulnerable && !enemy.IsDying && enemy.CheckPlayerInRange(hero.Position))
                 {
                     hero.TakeDamage(gameTime);
                 }

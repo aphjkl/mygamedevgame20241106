@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using myGame.GameObjects;
 using myGame.TileMap;
 
 
@@ -113,16 +114,18 @@ namespace myGame.Components
             isGrounded = false;
         }
 
-        public bool IsCollidingWithEnemy(Rectangle enemyBounds, bool isJumping)
+        public bool IsCollidingWithEnemy(Rectangle enemyBounds, Enemy enemy)
         {
             if (bounds.Intersects(enemyBounds))
             {
-                // If hero is falling onto enemy from above
-                if (isJumping && velocity.Y > 0 && 
-                    bounds.Bottom > enemyBounds.Top && 
-                    bounds.Bottom < enemyBounds.Top + bounds.Height/2)
+                float heroBottom = bounds.Bottom;
+                float enemyTop = enemyBounds.Top;
+                float verticalOverlap = heroBottom - enemyTop;
+
+                if (velocity.Y > 0 && verticalOverlap <= 20)
                 {
-                    velocity.Y = jumpForce * 0.7f; // Bounce off enemy
+                    velocity.Y = jumpForce * 0.7f;
+                    enemy.OnBeingJumpedOn();
                     return true;
                 }
             }

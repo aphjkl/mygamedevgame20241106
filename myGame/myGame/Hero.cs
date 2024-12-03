@@ -12,6 +12,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using myGame.Components;
+using myGame.GameObjects;
 
 namespace myGame
 {
@@ -26,6 +27,7 @@ namespace myGame
 
         public Vector2 Position => physicsComponent.Position;
         public int Health => healthComponent.Health;
+        public bool IsInvulnerable => healthComponent.IsInvulnerable;
 
         public Hero(Texture2D texture, IInputReader reader)
         {
@@ -84,9 +86,14 @@ namespace myGame
             healthComponent.Reset();
         }
 
-        public bool CheckEnemyCollision(Rectangle enemyBounds)
+        public bool CheckEnemyCollision(Enemy enemy)
         {
-            return physicsComponent.IsCollidingWithEnemy(enemyBounds, !physicsComponent.IsGrounded);
+            return physicsComponent.IsCollidingWithEnemy(enemy.Bounds, enemy);
+        }
+
+        public void MakeInvulnerable(float duration)
+        {
+            healthComponent.MakeInvulnerable(duration);
         }
     }
 }

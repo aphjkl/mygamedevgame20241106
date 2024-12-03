@@ -27,12 +27,10 @@ public class AnimationComponent
 
     private void InitializeAnimations()
     {
-        // Create idle animation
         var idleAnimation = new Animatie();
         idleAnimation.AddFrame(new AnimationFrame(new Rectangle(1, 1, 68, 56)));
         animations["idle"] = idleAnimation;
 
-        // Create walking animation
         var walkAnimation = new Animatie();
         walkAnimation.AddFrame(new AnimationFrame(new Rectangle(1, 1, 68, 56)));
         walkAnimation.AddFrame(new AnimationFrame(new Rectangle(70, 1, 68, 56)));
@@ -40,13 +38,11 @@ public class AnimationComponent
         walkAnimation.AddFrame(new AnimationFrame(new Rectangle(139, 1, 68, 56)));
         animations["walk"] = walkAnimation;
 
-        // New jump animation
         var jumpAnimation = new Animatie();
         jumpAnimation.AddFrame(new AnimationFrame(new Rectangle(70, 115, 68, 56)));
 
         animations["jump"] = jumpAnimation;
 
-        // New landing animation
         var landAnimation = new Animatie();
         landAnimation.AddFrame(new AnimationFrame(new Rectangle(139, 58, 68, 56))); 
         landAnimation.AddFrame(new AnimationFrame(new Rectangle(1, 115, 68, 56))); 
