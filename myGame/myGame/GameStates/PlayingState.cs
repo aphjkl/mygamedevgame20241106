@@ -26,31 +26,40 @@ namespace myGame.GameStates
             );
 
             // Initialize game objects
-            map = new Map();
+            InitializeMap();
             
-            // Create a simple ground platform
-            int[,] mapData = new int[,]
-            {
-
-                  { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-                 { 0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-                 { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
-            };
-            
-            map.LoadMap(mapData, 64); // 64 is the tile size
-
             hero = new Hero(game.Content.Load<Texture2D>("goldenCat"), new KeyboardReader());
             enemies = new List<Enemy>();
-            enemies.Add(new Enemy(game.Content.Load<Texture2D>("spriteEnemy-1"), new Vector2(300, 300)));
-            enemies.Add(new Enemy(game.Content.Load<Texture2D>("spriteEnemy-1"), new Vector2(500, 300)));
+            // enemies.Add(new Enemy(game.Content.Load<Texture2D>("spriteEnemy-1"), new Vector2(300, 300)));
+            // enemies.Add(new Enemy(game.Content.Load<Texture2D>("spriteEnemy-1"), new Vector2(500, 300)));
+            SpawnEnemies();
 
             healthDisplay = new HealthDisplay(
                 game.Content.Load<Texture2D>("heart-icon123"),
                 new Vector2(game.GraphicsDevice.Viewport.Width - 150, 20)
             );
+        }
+
+        private void InitializeMap()
+        {
+            map = new Map();
+            int[,] mapData = new int[,]
+            {
+                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                { 0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
+            };
+            map.LoadMap(mapData, 64);
+        }
+
+        private void SpawnEnemies()
+        {
+            enemies.Clear();
+            enemies.Add(new Enemy(gameRef.Content.Load<Texture2D>("spriteEnemy-1"), new Vector2(300, 300)));
+            enemies.Add(new Enemy(gameRef.Content.Load<Texture2D>("spriteEnemy-1"), new Vector2(500, 300)));
         }
 
         public override void Draw()
@@ -87,24 +96,19 @@ namespace myGame.GameStates
             {
                 var enemy = enemies[i];
                 enemy.Update(gameTime);
-                
-                // First check if enemy is already dying
-                if (enemy.IsDying)
+
+                // Check for successful jump collision
+                bool enemyKilled = hero.CheckEnemyCollision(enemy);
+                if (enemyKilled || enemy.IsDying)
                 {
                     enemies.RemoveAt(i);
+                    if (enemyKilled)
+                        hero.MakeInvulnerable(0.5f);
                     continue;
                 }
 
-                // Then check for successful jump collision
-                bool enemyKilled = hero.CheckEnemyCollision(enemy);
-                if (enemyKilled)
-                {
-                    hero.MakeInvulnerable(0.5f);
-                    continue;
-                }
-
-                // Only check for damage if hero isn't invulnerable and enemy isn't dying
-                if (!hero.IsInvulnerable && !enemy.IsDying && enemy.CheckPlayerInRange(hero.Position))
+                // Only check for damage if hero isn't invulnerable
+                if (!hero.IsInvulnerable && enemy.CheckPlayerInRange(hero.Position))
                 {
                     hero.TakeDamage(gameTime);
                 }
@@ -122,9 +126,7 @@ namespace myGame.GameStates
             hero.Reset();
             
             // Clear and recreate enemies list
-            enemies.Clear();
-            enemies.Add(new Enemy(gameRef.Content.Load<Texture2D>("spriteEnemy-1"), new Vector2(300, 300)));
-            enemies.Add(new Enemy(gameRef.Content.Load<Texture2D>("spriteEnemy-1"), new Vector2(500, 300)));
+            SpawnEnemies();
         }
 
         public override void Exit()

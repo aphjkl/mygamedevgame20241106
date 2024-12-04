@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using myGame.Animation;
+using myGame.Animations;
 using myGame.interfaces;
 using System;
 

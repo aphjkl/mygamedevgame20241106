@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using myGame.Animation;
+using myGame.Animations;
 using System.Collections.Generic;
 namespace myGame.Components{
 public class AnimationComponent

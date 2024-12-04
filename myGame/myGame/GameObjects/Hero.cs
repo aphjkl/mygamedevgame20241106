@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using myGame.Animation;
+using myGame.Animations;
 using myGame.Input;
 using myGame.interfaces;
 using myGame.TileMap;
@@ -12,9 +12,8 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using myGame.Components;
-using myGame.GameObjects;
 
-namespace myGame
+namespace myGame.GameObjects
 {
     internal class Hero : IGameObject
     {
@@ -34,7 +33,7 @@ namespace myGame
             inputReader = reader;
             healthComponent = new HealthComponent();
             physicsComponent = new PhysicsComponent(
-                startPosition, 
+                startPosition,
                 new Rectangle((int)startPosition.X, (int)startPosition.Y, 68, 46)
             );
             animationComponent = new AnimationComponent(texture);
@@ -46,7 +45,7 @@ namespace myGame
         {
             var direction = inputReader.ReadInput();
             bool isInAir = !physicsComponent.IsGrounded;
-            
+
             if (direction.Y < 0)
             {
                 physicsComponent.Jump();
@@ -61,7 +60,7 @@ namespace myGame
             physicsComponent.Update(gameTime);
             healthComponent.Update(gameTime);
             animationComponent.Update(gameTime, direction.X != 0, isInAir, wasInAir);
-            
+
             wasInAir = isInAir;
         }
 
