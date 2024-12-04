@@ -9,11 +9,13 @@
     <File>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/MyGame/myGame/Content/goldenCat.png</File>
     <File>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/MyGame/myGame/Content/heart-icon123.png</File>
     <File>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/MyGame/myGame/Content/spriteEnemy-1.png</File>
+    <File>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/MyGame/myGame/Content/spriteEnemy-2.png</File>
     <File>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/MyGame/myGame/Content/Tile1.png</File>
     <File>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/MyGame/myGame/Content/Tile2.png</File>
   </SourceFiles>
   <DestFiles>
     <File>Tile1.png</File>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

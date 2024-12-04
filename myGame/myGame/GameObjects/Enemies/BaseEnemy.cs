@@ -23,7 +23,7 @@ namespace myGame.GameObjects.Enemies
         public BaseEnemy(Texture2D texture, Vector2 startPosition, float moveSpeed = 2f)
         {
             this.texture = texture;
-            this.position = startPosition;
+            this.position = new Vector2(startPosition.X, startPosition.Y - 30);
             this.startX = startPosition.X;
             this.moveSpeed = moveSpeed;
             this.rectangle = new Rectangle((int)position.X, (int)position.Y, 74, 60);
@@ -56,9 +56,27 @@ namespace myGame.GameObjects.Enemies
             isDying = true;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
-            throw new System.NotImplementedException();
+            SpriteEffects effect = movingRight ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            spriteBatch.Draw(texture, position, animation.CurrentFrame.SourceRectangle, 
+                Color.White, 0, Vector2.Zero, 1.0f, effect, 0);
+        }
+
+        public virtual bool CheckPlayerInRange(Vector2 playerPosition)
+        {
+            return false; // Base implementation returns false, derived classes will override
+        }
+
+        public Vector2 Position
+        {
+            get => position;
+            set 
+            { 
+                position = value;
+                rectangle.X = (int)position.X;
+                rectangle.Y = (int)position.Y;
+            }
         }
 
         // Other common methods...

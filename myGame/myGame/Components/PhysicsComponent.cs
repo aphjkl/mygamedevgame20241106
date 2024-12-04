@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using myGame.GameObjects;
+using myGame.GameObjects.Enemies;
 using myGame.TileMap;
 
 
@@ -114,15 +115,18 @@ namespace myGame.Components
             isGrounded = false;
         }
 
-        public bool IsCollidingWithEnemy(Rectangle enemyBounds, Enemy enemy)
+        public bool IsCollidingWithEnemy(Rectangle enemyBounds, BaseEnemy enemy)
         {
             if (bounds.Intersects(enemyBounds))
             {
                 float heroBottom = bounds.Bottom;
                 float enemyTop = enemyBounds.Top;
+                float heroTop = bounds.Top;
+                float enemyBottom = enemyBounds.Bottom;
                 float verticalOverlap = heroBottom - enemyTop;
-
-                if (velocity.Y > 0 && verticalOverlap <= 20)
+                
+                // More precise jump-on detection
+                if (velocity.Y > 0 && verticalOverlap <= 15 && heroTop < enemyTop)
                 {
                     velocity.Y = jumpForce * 0.7f;
                     enemy.OnBeingJumpedOn();

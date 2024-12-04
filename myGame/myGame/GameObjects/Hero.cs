@@ -12,6 +12,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using myGame.Components;
+using myGame.GameObjects.Enemies;
 
 namespace myGame.GameObjects
 {
@@ -85,7 +86,7 @@ namespace myGame.GameObjects
             healthComponent.Reset();
         }
 
-        public bool CheckEnemyCollision(Enemy enemy)
+        public bool CheckEnemyCollision(BaseEnemy enemy)
         {
             return physicsComponent.IsCollidingWithEnemy(enemy.Bounds, enemy);
         }

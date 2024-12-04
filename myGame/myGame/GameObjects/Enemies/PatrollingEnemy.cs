@@ -4,6 +4,7 @@ using myGame.interfaces;
 using myGame.Animations;
 
 using myGame.Animations;
+using System;
 
 namespace myGame.GameObjects.Enemies
 {
@@ -13,7 +14,7 @@ namespace myGame.GameObjects.Enemies
         private float patrolDistance;
         private float attackRange;
 
-        public PatrollingEnemy(Texture2D texture, Vector2 startPosition, float patrolDistance = 300f, float attackRange = 100f)
+        public PatrollingEnemy(Texture2D texture, Vector2 startPosition, float patrolDistance = 200f, float attackRange = 60f)
             : base(texture, startPosition)
         {
             this.patrolDistance = patrolDistance;
@@ -59,7 +60,7 @@ namespace myGame.GameObjects.Enemies
             animation.AddFrame(new AnimationFrame(new Rectangle(151, 1, 74, 60)));
         }
 
-        public bool CheckPlayerInRange(Vector2 playerPosition)
+        public override bool CheckPlayerInRange(Vector2 playerPosition)
         {
             if (isDying || isAttacking) return false;
 

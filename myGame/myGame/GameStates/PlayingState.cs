@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using myGame.Camera;
 using myGame.GameObjects;
+using myGame.GameObjects.Enemies;
 using myGame.Input;
 using myGame.TileMap;
 using myGame.UI;
@@ -13,9 +14,10 @@ namespace myGame.GameStates
     {
         private Hero hero;
         private Map map;
-        private List<Enemy> enemies;
+        private List<BaseEnemy> enemies;
         private Camera2D camera;
         private HealthDisplay healthDisplay;
+        private EnemyFactory enemyFactory;
 
         public PlayingState(Game1 game) : base(game)
         {
@@ -27,11 +29,10 @@ namespace myGame.GameStates
 
             // Initialize game objects
             InitializeMap();
+            enemyFactory = new EnemyFactory(game);
             
             hero = new Hero(game.Content.Load<Texture2D>("goldenCat"), new KeyboardReader());
-            enemies = new List<Enemy>();
-            // enemies.Add(new Enemy(game.Content.Load<Texture2D>("spriteEnemy-1"), new Vector2(300, 300)));
-            // enemies.Add(new Enemy(game.Content.Load<Texture2D>("spriteEnemy-1"), new Vector2(500, 300)));
+            enemies = new List<BaseEnemy>();
             SpawnEnemies();
 
             healthDisplay = new HealthDisplay(
@@ -58,8 +59,9 @@ namespace myGame.GameStates
         private void SpawnEnemies()
         {
             enemies.Clear();
-            enemies.Add(new Enemy(gameRef.Content.Load<Texture2D>("spriteEnemy-1"), new Vector2(300, 300)));
-            enemies.Add(new Enemy(gameRef.Content.Load<Texture2D>("spriteEnemy-1"), new Vector2(500, 300)));
+            float groundY = 5 * 64 - 30;
+            enemies.Add(enemyFactory.CreateEnemy("patrol", new Vector2(300, groundY)));
+            enemies.Add(enemyFactory.CreateEnemy("aggressive", new Vector2(500, groundY)));
         }
 
         public override void Draw()
@@ -111,6 +113,19 @@ namespace myGame.GameStates
                 if (!hero.IsInvulnerable && enemy.CheckPlayerInRange(hero.Position))
                 {
                     hero.TakeDamage(gameTime);
+                }
+            }
+
+            // Add enemy collision with tiles
+            foreach (var enemy in enemies)
+            {
+                foreach (CollisionTiles tile in map.Tiles)
+                {
+                    if (enemy.Bounds.Intersects(tile.Rectangle))
+                    {
+                        // Keep enemies on top of tiles
+                        enemy.Position = new Vector2(enemy.Position.X, tile.Rectangle.Top - enemy.Bounds.Height);
+                    }
                 }
             }
 
