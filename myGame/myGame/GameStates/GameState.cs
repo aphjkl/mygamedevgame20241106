@@ -4,6 +4,7 @@ namespace myGame.GameStates
     {
         StartScreen,
         Playing,
-        GameOver
+        GameOver,
+        Pause
     }
 }

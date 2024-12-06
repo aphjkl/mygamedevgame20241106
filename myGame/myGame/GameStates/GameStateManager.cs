@@ -44,6 +44,9 @@ namespace myGame.GameStates
                     case "gameover":
                         currentGameState = GameState.GameOver;
                         break;
+                    case "pause":
+                        currentGameState = GameState.Pause;
+                        break;
                 }
             }
         }
@@ -55,6 +58,7 @@ namespace myGame.GameStates
                 GameState.StartScreen => "Menu",
                 GameState.Playing => "Playing",
                 GameState.GameOver => "GameOver",
+                GameState.Pause => "Pause",
                 _ => throw new ArgumentException("Invalid state")
             };
             SwitchState(stateName);
@@ -68,6 +72,13 @@ namespace myGame.GameStates
         public void Draw()
         {
             currentState?.Draw();
+        }
+
+        public BaseGameState GetState(string stateName)
+        {
+            if (states.ContainsKey(stateName))
+                return states[stateName];
+            return null;
         }
     }
 }

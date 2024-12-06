@@ -18,6 +18,7 @@ namespace myGame
         private SpriteBatch _spriteBatch;
         private GameStateManager stateManager;
         private SpriteFont font;
+        private KeyboardState previousKeyboardState;
 
         public GameStateManager StateManager => stateManager;
 
@@ -33,11 +34,13 @@ namespace myGame
         {
             myGame.TileMap.Tiles.Content = Content;
             
+            previousKeyboardState = Keyboard.GetState();
             base.Initialize();
 
             stateManager.AddState("Menu", new MenuState(this));
             stateManager.AddState("Playing", new PlayingState(this));
             stateManager.AddState("GameOver", new GameOverState(this));
+            stateManager.AddState("Pause", new PauseState(this));
             
             stateManager.SwitchState("Menu");
         }
@@ -51,14 +54,24 @@ namespace myGame
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || 
-                Keyboard.GetState().IsKeyDown(Keys.Escape))
+            KeyboardState currentKeyboardState = Keyboard.GetState();
+
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
             {
                 Exit();
             }
 
+            if (stateManager.CurrentState == GameState.Playing && 
+                currentKeyboardState.IsKeyDown(Keys.Escape) && 
+                previousKeyboardState.IsKeyUp(Keys.Escape))
+            {
+                stateManager.SetState(GameState.Pause);
+            }
+
             stateManager.Update(gameTime);
             base.Update(gameTime);
+
+            previousKeyboardState = currentKeyboardState;
         }
 
         protected override void Draw(GameTime gameTime)

@@ -28,6 +28,8 @@ namespace myGame.GameStates
             
             if (action == "replay")
             {
+                var playingState = gameRef.StateManager.GetState("Playing") as PlayingState;
+                playingState?.Restart();
                 gameRef.StateManager.SetState(GameState.Playing);
             }
             else if (action == "quit")

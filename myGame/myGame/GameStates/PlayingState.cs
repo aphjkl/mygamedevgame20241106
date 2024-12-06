@@ -7,6 +7,7 @@ using myGame.Input;
 using myGame.TileMap;
 using myGame.UI;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Input;
 
 namespace myGame.GameStates
 {
@@ -18,27 +19,38 @@ namespace myGame.GameStates
         private Camera2D camera;
         private HealthDisplay healthDisplay;
         private EnemyFactory enemyFactory;
+        private bool isInitialized = false;
 
         public PlayingState(Game1 game) : base(game)
         {
-            // Initialize camera
-            camera = new Camera2D(
-                new Rectangle(0, 0, game.GraphicsDevice.Viewport.Width, game.GraphicsDevice.Viewport.Height),
-                new Rectangle(0, 0, 1920, 1080)
-            );
+        }
 
-            // Initialize game objects
-            InitializeMap();
-            enemyFactory = new EnemyFactory(game);
-            
-            hero = new Hero(game.Content.Load<Texture2D>("goldenCat"), new KeyboardReader());
-            enemies = new List<BaseEnemy>();
-            SpawnEnemies();
+        private void InitializeGameState()
+        {
+            if (!isInitialized)
+            {
+                // Initialize camera
+                camera = new Camera2D(
+                    new Rectangle(0, 0, gameRef.GraphicsDevice.Viewport.Width, gameRef.GraphicsDevice.Viewport.Height),
+                    new Rectangle(0, 0, 1920, 1080)
+                );
 
-            healthDisplay = new HealthDisplay(
-                game.Content.Load<Texture2D>("heart-icon123"),
-                new Vector2(game.GraphicsDevice.Viewport.Width - 150, 20)
-            );
+                // Initialize game objects
+                enemies = new List<BaseEnemy>();
+                InitializeMap();
+                enemyFactory = new EnemyFactory(gameRef);
+                hero = new Hero(gameRef.Content.Load<Texture2D>("goldenCat"), new KeyboardReader());
+
+                // Create health display with exactly 3 hearts
+                Vector2 healthPosition = new Vector2(10, 10);
+                healthDisplay = new HealthDisplay(
+                    gameRef.Content.Load<Texture2D>("heart-icon123"),
+                    healthPosition,
+                    3  // Explicitly set to 3 hearts
+                );
+
+                isInitialized = true;
+            }
         }
 
         private void InitializeMap()
@@ -66,23 +78,38 @@ namespace myGame.GameStates
 
         public override void Draw()
         {
-            spriteBatch.Begin(transformMatrix: camera.Transform);
-            map.Draw(spriteBatch);
-            hero.Draw(spriteBatch);
+            if (!isInitialized) return;
+
+            spriteBatch.Begin(transformMatrix: camera.TransformMatrix);
+            
+            // Draw map
+            map?.Draw(spriteBatch);
+
+            // Draw enemies
             foreach (var enemy in enemies)
             {
                 enemy.Draw(spriteBatch);
             }
+
+            // Draw hero
+            hero?.Draw(spriteBatch);
+            
             spriteBatch.End();
 
-            // Draw UI without camera transform
+            // Draw UI elements without camera transform
             spriteBatch.Begin();
-            healthDisplay.Draw(spriteBatch, hero.Health);
+            healthDisplay?.Draw(spriteBatch, hero.Health);
             spriteBatch.End();
         }
 
         public override void Update(GameTime gameTime)
         {
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
+                gameRef.StateManager.SetState(GameState.Pause);
+                return;
+            }
+
             hero.Update(gameTime);
             
             // Check collision with all tiles
@@ -137,11 +164,20 @@ namespace myGame.GameStates
 
         public override void Enter()
         {
-            // Reset game state when entering
-            hero.Reset();
-            
-            // Clear and recreate enemies list
+            if (!isInitialized)
+            {
+                InitializeGameState();
+                SpawnEnemies();
+            }
+        }
+
+        public void Restart()
+        {
+            isInitialized = false;
+            InitializeGameState();
             SpawnEnemies();
+            hero.Reset();
+            camera.Follow(hero.Position);
         }
 
         public override void Exit()

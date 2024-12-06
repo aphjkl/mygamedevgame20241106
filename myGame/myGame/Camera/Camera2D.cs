@@ -11,6 +11,7 @@ namespace myGame.Camera
         private Rectangle worldBounds;
         
         public Matrix Transform { get; private set; }
+        public Matrix TransformMatrix { get; private set; }
 
         public Camera2D(Rectangle viewport, Rectangle worldBounds)
         {
@@ -33,7 +34,7 @@ namespace myGame.Camera
 
         public void UpdateMatrix()
         {
-            Transform = Matrix.CreateTranslation(new Vector3(-position, 0.0f));
+            TransformMatrix = Matrix.CreateTranslation(new Vector3(-position, 0.0f));
         }
     }
 } 
