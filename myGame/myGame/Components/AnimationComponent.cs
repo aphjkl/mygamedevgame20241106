@@ -82,14 +82,14 @@ public class AnimationComponent
         currentAnimation.Update(gameTime);
     }
 
-    public void Draw(SpriteBatch spriteBatch, Vector2 position)
+    public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
     {
         SpriteEffects effect = isFacingRight ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
         spriteBatch.Draw(
             texture, 
             position, 
             currentAnimation.CurrentFrame.SourceRectangle,
-            Color.White,
+            color,
             0,
             Vector2.Zero,
             1.0f,

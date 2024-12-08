@@ -24,6 +24,10 @@ namespace myGame.GameObjects
         private IInputReader inputReader;
         private Vector2 startPosition = new Vector2(100, 10);
         private bool wasInAir;
+        private float flashTimer = 0f;
+        private bool isFlashing = false;
+        private const float FLASH_DURATION = 0.1f;
+        private const float FLASH_INTERVAL = 0.2f;
 
         public Vector2 Position => physicsComponent.Position;
         public int Health => healthComponent.Health;
@@ -44,6 +48,15 @@ namespace myGame.GameObjects
 
         public void Update(GameTime gameTime)
         {
+            if (isFlashing)
+            {
+                flashTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (flashTimer <= 0)
+                {
+                    isFlashing = false;
+                }
+            }
+
             var direction = inputReader.ReadInput();
             bool isInAir = !physicsComponent.IsGrounded;
 
@@ -67,7 +80,14 @@ namespace myGame.GameObjects
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            animationComponent.Draw(spriteBatch, physicsComponent.Position);
+            if (isFlashing && (int)(flashTimer / FLASH_INTERVAL) % 2 == 0)
+            {
+                animationComponent.Draw(spriteBatch, physicsComponent.Position, Color.Red * 0.7f);
+            }
+            else
+            {
+                animationComponent.Draw(spriteBatch, physicsComponent.Position, Color.White);
+            }
         }
 
         public void Collision(Rectangle newRectangle, int xOffset, int yOffset)
@@ -78,6 +98,8 @@ namespace myGame.GameObjects
         public void TakeDamage(GameTime gameTime)
         {
             healthComponent.TakeDamage();
+            isFlashing = true;
+            flashTimer = FLASH_DURATION;
         }
 
         public void Reset()
