@@ -20,6 +20,9 @@ namespace myGame.GameStates
         private HealthDisplay healthDisplay;
         private EnemyFactory enemyFactory;
         private bool isInitialized = false;
+        private LevelPortal levelPortal;
+        private int currentLevel = 1;
+        private const int MAX_LEVELS = 2;
 
         public PlayingState(Game1 game) : base(game)
         {
@@ -76,6 +79,72 @@ namespace myGame.GameStates
             enemies.Add(enemyFactory.CreateEnemy("aggressive", new Vector2(500, groundY)));
         }
 
+        private void InitializeLevel(int level)
+        {
+            // Clear existing enemies
+            enemies.Clear();
+
+            switch (level)
+            {
+                case 1:
+                    InitializeLevel1();
+                    break;
+                case 2:
+                    InitializeLevel2();
+                    break;
+            }
+
+            // Reset hero position for new level
+            hero.Reset();
+            camera.Follow(hero.Position);
+        }
+
+        private void InitializeLevel1()
+        {
+            int[,] mapData = new int[,]
+            {
+                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                { 0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
+            };
+            map.LoadMap(mapData, 64);
+            
+            // Add portal at end of level
+            Vector2 portalPosition = new Vector2(1800, 256); // Adjust position as needed
+            levelPortal = new LevelPortal(
+                gameRef.Content.Load<Texture2D>("portal"), // Add portal texture to content
+                portalPosition
+            );
+
+            SpawnEnemies();
+        }
+
+        private void InitializeLevel2()
+        {
+            int[,] mapData = new int[,]
+            {
+                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                { 0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                { 0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0 },
+                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
+            };
+            map.LoadMap(mapData, 64);
+            SpawnEnemiesLevel2();
+        }
+
+        private void SpawnEnemiesLevel2()
+        {
+            float groundY = 5 * 64 - 30;
+            enemies.Add(enemyFactory.CreateEnemy("aggressive", new Vector2(300, groundY)));
+            enemies.Add(enemyFactory.CreateEnemy("patrol", new Vector2(700, groundY)));
+            enemies.Add(enemyFactory.CreateEnemy("aggressive", new Vector2(1000, groundY)));
+        }
+
         public override void Draw()
         {
             if (!isInitialized) return;
@@ -100,6 +169,12 @@ namespace myGame.GameStates
             spriteBatch.Begin();
             healthDisplay?.Draw(spriteBatch, hero.Health);
             spriteBatch.End();
+
+            // Draw portal if not in last level
+            if (currentLevel < MAX_LEVELS)
+            {
+                levelPortal?.Draw(spriteBatch);
+            }
         }
 
         public override void Update(GameTime gameTime)
@@ -159,6 +234,17 @@ namespace myGame.GameStates
             if (hero.Health <= 0)
             {
                 gameRef.StateManager.SetState(GameState.GameOver);
+            }
+
+            // Add portal update
+            if (currentLevel < MAX_LEVELS)
+            {
+                levelPortal.Update(gameTime, hero.Bounds);
+                if (levelPortal.IsActivated)
+                {
+                    currentLevel++;
+                    InitializeLevel(currentLevel);
+                }
             }
         }
 
