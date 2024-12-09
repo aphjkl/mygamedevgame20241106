@@ -85,3 +85,4 @@ C:\Users\adam\apschool\GameDev\mygamedevgame20241106\MyGame\myGame\obj\Debug\net
 C:\Users\adam\apschool\GameDev\mygamedevgame20241106\MyGame\myGame\obj\Debug\net6.0-windows\ref\myGame.dll
 C:\Users\adam\apschool\GameDev\mygamedevgame20241106\MyGame\myGame\bin\Debug\net6.0-windows\Content\heart-icon123.xnb
 C:\Users\adam\apschool\GameDev\mygamedevgame20241106\MyGame\myGame\bin\Debug\net6.0-windows\Content\spriteEnemy-2.xnb
+C:\Users\adam\apschool\GameDev\mygamedevgame20241106\MyGame\myGame\bin\Debug\net6.0-windows\Content\castle-1.xnb

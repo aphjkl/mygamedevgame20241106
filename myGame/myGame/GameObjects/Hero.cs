@@ -32,6 +32,8 @@ namespace myGame.GameObjects
         public Vector2 Position => physicsComponent.Position;
         public int Health => healthComponent.Health;
         public bool IsInvulnerable => healthComponent.IsInvulnerable;
+        public Rectangle Bounds => physicsComponent.CollisionRectangle;
+
 
         public Hero(Texture2D texture, IInputReader reader)
         {

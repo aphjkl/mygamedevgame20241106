@@ -17,15 +17,18 @@ namespace myGame.Components
         private float jumpForce = -12f;
         private float maxFallSpeed = 10f;
         private bool isGrounded;
+        private Rectangle collisionRectangle;
 
         public Vector2 Position => position;
         public Rectangle Bounds => bounds;
         public bool IsGrounded => isGrounded;
+        public Rectangle CollisionRectangle => collisionRectangle;
 
         public PhysicsComponent(Vector2 startPosition, Rectangle bounds)
         {
             position = startPosition;
             this.bounds = bounds;
+            this.collisionRectangle = bounds;
             velocity = Vector2.Zero;
         }
 
@@ -42,9 +45,15 @@ namespace myGame.Components
             // Apply velocity to position
             position += velocity;
 
-            // Update rectangle position
+            // Update both rectangles
             bounds.X = (int)position.X;
             bounds.Y = (int)position.Y;
+            collisionRectangle = new Rectangle(
+                (int)position.X,
+                (int)position.Y,
+                bounds.Width,
+                bounds.Height
+            );
 
             // Reset isGrounded - will be set true by collision check if needed
             isGrounded = false;

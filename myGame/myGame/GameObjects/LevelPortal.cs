@@ -8,13 +8,20 @@ namespace myGame.GameObjects
         private Rectangle bounds;
         private Texture2D texture;
         private float activationTimer = 0f;
-        private const float ACTIVATION_TIME = 2f; // Time player needs to stand in portal
+        private const float ACTIVATION_TIME = 1.5f; // Reduced time to 1.5 seconds
         private bool isPlayerInPortal = false;
+        private const int PORTAL_WIDTH = 200;  
+        private const int PORTAL_HEIGHT = 200; 
 
         public LevelPortal(Texture2D texture, Vector2 position)
         {
             this.texture = texture;
-            bounds = new Rectangle((int)position.X, (int)position.Y, 64, 96); // Adjust size as needed
+            bounds = new Rectangle(
+                (int)position.X, 
+                (int)position.Y, 
+                PORTAL_WIDTH, 
+                PORTAL_HEIGHT
+            );
         }
 
         public void Update(GameTime gameTime, Rectangle playerBounds)
@@ -33,7 +40,8 @@ namespace myGame.GameObjects
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, bounds, Color.White);
+            Color portalColor = isPlayerInPortal ? Color.White * 0.8f : Color.White;
+            spriteBatch.Draw(texture, bounds, portalColor);
         }
 
         public bool IsActivated => activationTimer >= ACTIVATION_TIME;

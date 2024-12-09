@@ -52,6 +52,10 @@ namespace myGame.GameStates
                     3  // Explicitly set to 3 hearts
                 );
 
+                // Initialize first level
+                currentLevel = 1;
+                InitializeLevel(currentLevel);
+                
                 isInitialized = true;
             }
         }
@@ -106,16 +110,16 @@ namespace myGame.GameStates
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-                { 0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                { 0,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0 },
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
                 { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
             };
             map.LoadMap(mapData, 64);
             
             // Add portal at end of level
-            Vector2 portalPosition = new Vector2(1800, 256); // Adjust position as needed
+            Vector2 portalPosition = new Vector2(1700, 130);
             levelPortal = new LevelPortal(
-                gameRef.Content.Load<Texture2D>("portal"), // Add portal texture to content
+                gameRef.Content.Load<Texture2D>("castle-1"),
                 portalPosition
             );
 
@@ -151,34 +155,37 @@ namespace myGame.GameStates
 
             spriteBatch.Begin(transformMatrix: camera.TransformMatrix);
             
-            // Draw map
             map?.Draw(spriteBatch);
+            
+            // Draw portal if not in last level
+            if (currentLevel < MAX_LEVELS && levelPortal != null)
+            {
+                levelPortal.Draw(spriteBatch);
+            }
 
-            // Draw enemies
             foreach (var enemy in enemies)
             {
                 enemy.Draw(spriteBatch);
             }
 
-            // Draw hero
             hero?.Draw(spriteBatch);
             
             spriteBatch.End();
 
-            // Draw UI elements without camera transform
+            // UI elements
             spriteBatch.Begin();
             healthDisplay?.Draw(spriteBatch, hero.Health);
             spriteBatch.End();
-
-            // Draw portal if not in last level
-            if (currentLevel < MAX_LEVELS)
-            {
-                levelPortal?.Draw(spriteBatch);
-            }
         }
 
         public override void Update(GameTime gameTime)
         {
+            if (!isInitialized)
+            {
+                InitializeGameState();
+                return;
+            }
+
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
                 gameRef.StateManager.SetState(GameState.Pause);
@@ -187,6 +194,18 @@ namespace myGame.GameStates
 
             hero.Update(gameTime);
             
+            // Update portal
+            if (currentLevel < MAX_LEVELS && levelPortal != null)
+            {
+                levelPortal.Update(gameTime, hero.Bounds);                
+                if (levelPortal.IsActivated)
+                {
+                    currentLevel++;
+                    InitializeLevel(currentLevel);
+                    return;
+                }
+            }
+
             // Check collision with all tiles
             foreach (CollisionTiles tile in map.Tiles)
             {
@@ -234,17 +253,6 @@ namespace myGame.GameStates
             if (hero.Health <= 0)
             {
                 gameRef.StateManager.SetState(GameState.GameOver);
-            }
-
-            // Add portal update
-            if (currentLevel < MAX_LEVELS)
-            {
-                levelPortal.Update(gameTime, hero.Bounds);
-                if (levelPortal.IsActivated)
-                {
-                    currentLevel++;
-                    InitializeLevel(currentLevel);
-                }
             }
         }
 
