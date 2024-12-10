@@ -100,6 +100,12 @@ namespace myGame.Managers
             };
             map.LoadMap(mapData, 64);
 
+            Vector2 portalPosition = new Vector2(1700, 130);
+            levelPortal = new LevelPortal(
+                gameRef.Content.Load<Texture2D>("castle-1"),
+                portalPosition
+            );
+
             SpawnEnemiesLevel3();
         }
 

@@ -2,7 +2,7 @@ namespace myGame.GameStates
 {
     public enum GameState
     {
-        StartScreen,
+        Menu,
         Playing,
         GameOver,
         Pause,

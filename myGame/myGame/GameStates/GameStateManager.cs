@@ -9,18 +9,22 @@ namespace myGame.GameStates
     {
         private Dictionary<string, BaseGameState> states;
         private BaseGameState currentState;
-        private GameState currentGameState;
+        private Game1 gameRef;
 
-        public GameStateManager()
+        public GameStateManager(Game1 game)
         {
+            gameRef = game;
             states = new Dictionary<string, BaseGameState>();
         }
-
-        public GameState CurrentState => currentGameState;
 
         public void AddState(string name, BaseGameState state)
         {
             states[name] = state;
+        }
+
+        public BaseGameState GetState(string name)
+        {
+            return states.ContainsKey(name) ? states[name] : null;
         }
 
         public void SwitchState(string stateName)
@@ -28,40 +32,33 @@ namespace myGame.GameStates
             if (currentState != null)
                 currentState.Exit();
 
-            if (states.TryGetValue(stateName, out BaseGameState newState))
-            {
-                currentState = newState;
-                currentState.Enter();
-                
-                switch (stateName.ToLower())
-                {
-                    case "menu":
-                        currentGameState = GameState.StartScreen;
-                        break;
-                    case "playing":
-                        currentGameState = GameState.Playing;
-                        break;
-                    case "gameover":
-                        currentGameState = GameState.GameOver;
-                        break;
-                    case "pause":
-                        currentGameState = GameState.Pause;
-                        break;
-                }
-            }
+            currentState = states[stateName];
+            currentState.Enter();
         }
 
-        public void SetState(GameState newState)
+        public void SetState(GameState state)
         {
-            string stateName = newState switch
+            string stateName = state.ToString();
+            if (currentState != null)
+                currentState.Exit();
+
+            currentState = states[stateName];
+            currentState.Enter();
+        }
+
+        public GameState CurrentState
+        {
+            get
             {
-                GameState.StartScreen => "Menu",
-                GameState.Playing => "Playing",
-                GameState.GameOver => "GameOver",
-                GameState.Pause => "Pause",
-                _ => throw new ArgumentException("Invalid state")
-            };
-            SwitchState(stateName);
+                foreach (var pair in states)
+                {
+                    if (pair.Value == currentState)
+                    {
+                        return (GameState)System.Enum.Parse(typeof(GameState), pair.Key);
+                    }
+                }
+                return GameState.Menu;
+            }
         }
 
         public void Update(GameTime gameTime)
@@ -72,13 +69,6 @@ namespace myGame.GameStates
         public void Draw()
         {
             currentState?.Draw();
-        }
-
-        public BaseGameState GetState(string stateName)
-        {
-            if (states.ContainsKey(stateName))
-                return states[stateName];
-            return null;
         }
     }
 }

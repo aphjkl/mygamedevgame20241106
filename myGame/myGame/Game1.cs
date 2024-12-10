@@ -22,13 +22,20 @@ namespace myGame
 
         public GameStateManager StateManager => stateManager;
 
+        // public Game1()
+        // {
+        //     _graphics = new GraphicsDeviceManager(this);
+        //     Content.RootDirectory = "Content";
+        //     IsMouseVisible = true;
+        //     stateManager = new GameStateManager();
+        // }
         public Game1()
-        {
-            _graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
-            IsMouseVisible = true;
-            stateManager = new GameStateManager();
-        }
+{
+    _graphics = new GraphicsDeviceManager(this);
+    Content.RootDirectory = "Content";
+    IsMouseVisible = true;
+    stateManager = new GameStateManager(this);
+}
 
         protected override void Initialize()
         {
@@ -37,12 +44,13 @@ namespace myGame
             previousKeyboardState = Keyboard.GetState();
             base.Initialize();
 
-            stateManager.AddState("Menu", new MenuState(this));
-            stateManager.AddState("Playing", new PlayingState(this));
-            stateManager.AddState("GameOver", new GameOverState(this));
-            stateManager.AddState("Pause", new PauseState(this));
+            stateManager.AddState(GameState.Menu.ToString(), new MenuState(this));
+            stateManager.AddState(GameState.Playing.ToString(), new PlayingState(this));
+            stateManager.AddState(GameState.GameOver.ToString(), new GameOverState(this));
+            stateManager.AddState(GameState.Pause.ToString(), new PauseState(this));
+            stateManager.AddState(GameState.Win.ToString(), new WinState(this));
             
-            stateManager.SwitchState("Menu");
+            stateManager.SwitchState(GameState.Menu.ToString());
         }
 
         protected override void LoadContent()

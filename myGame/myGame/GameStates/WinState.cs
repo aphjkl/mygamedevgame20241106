@@ -28,7 +28,7 @@ namespace myGame.GameStates
 
             if (action == "menu")
             {
-                gameRef.StateManager.SetState(GameState.StartScreen);
+                gameRef.StateManager.SetState(GameState.Menu);
             }
             else if (action == "quit")
             {

@@ -79,6 +79,16 @@ namespace myGame.GameStates
                 }
             }
 
+            if (levelManager.CurrentLevel == LevelManager.MAX_LEVELS && levelManager.LevelPortal != null)
+            {
+                levelManager.LevelPortal.Update(gameTime, hero.Bounds);
+                if (levelManager.LevelPortal.IsActivated)
+                {
+                    gameRef.StateManager.SetState(GameState.Win);
+                    return;
+                }
+            }
+
             // Check collision with all tiles
             // foreach (CollisionTiles tile in levelManager.Map.Tiles)
             // {
@@ -115,6 +125,12 @@ namespace myGame.GameStates
             if (hero.Health <= 0)
             {
                 gameRef.StateManager.SetState(GameState.GameOver);
+            }
+
+            if (levelManager.CurrentLevel > LevelManager.MAX_LEVELS)
+            {
+                gameRef.StateManager.SetState(GameState.Win);
+                return;
             }
         }
 
