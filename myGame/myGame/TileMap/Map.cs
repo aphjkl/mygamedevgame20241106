@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace myGame.TileMap
 {
-     class Map
+    public class Map
     {
         private List<CollisionTiles> tiles;
         private int[,] tileData;
@@ -16,7 +16,7 @@ namespace myGame.TileMap
         
         public int Width { get; private set; }
         public int Height { get; private set; }
-        public List<CollisionTiles> Tiles => tiles;
+        public List<CollisionTiles> CollisionTiles => tiles;
         
         public Map()
         {

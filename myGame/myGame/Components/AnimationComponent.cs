@@ -9,8 +9,6 @@ public class AnimationComponent
     private Animatie currentAnimation;
     private Dictionary<string, Animatie> animations;
     private bool isFacingRight;
-    private bool isJumping;
-    private bool isLanding;
     
     public bool IsFacingRight
     {

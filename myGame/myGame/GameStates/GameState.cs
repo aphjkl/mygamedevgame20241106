@@ -5,6 +5,7 @@ namespace myGame.GameStates
         StartScreen,
         Playing,
         GameOver,
-        Pause
+        Pause,
+        Win
     }
 }

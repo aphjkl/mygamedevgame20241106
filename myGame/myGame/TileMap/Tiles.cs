@@ -36,7 +36,7 @@ namespace myGame.TileMap
 
 
     }
-    class CollisionTiles : Tiles
+    public class CollisionTiles : Tiles
     {
         public CollisionTiles(int i, Rectangle newRectangle)
         {
