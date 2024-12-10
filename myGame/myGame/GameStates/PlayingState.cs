@@ -142,7 +142,8 @@ namespace myGame.GameStates
             
             levelManager.Map?.Draw(spriteBatch);
             
-            if (levelManager.CurrentLevel < LevelManager.MAX_LEVELS && levelManager.LevelPortal != null)
+            // Show portal for all levels including the final one
+            if (levelManager.LevelPortal != null)
             {
                 levelManager.LevelPortal.Draw(spriteBatch);
             }
