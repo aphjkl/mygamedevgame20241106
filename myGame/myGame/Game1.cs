@@ -22,13 +22,6 @@ namespace myGame
 
         public GameStateManager StateManager => stateManager;
 
-        // public Game1()
-        // {
-        //     _graphics = new GraphicsDeviceManager(this);
-        //     Content.RootDirectory = "Content";
-        //     IsMouseVisible = true;
-        //     stateManager = new GameStateManager();
-        // }
         public Game1()
 {
     _graphics = new GraphicsDeviceManager(this);

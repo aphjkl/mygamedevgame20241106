@@ -19,6 +19,9 @@ namespace myGame.GameStates
         private HealthDisplay healthDisplay;
         private LevelManager levelManager;
         private bool isInitialized = false;
+        private Texture2D backgroundTexture;
+        private List<Rectangle> backgroundRects;
+        private const int BACKGROUND_WIDTH = 300;  // Adjust this to match your image's width
 
         public PlayingState(Game1 game) : base(game)
         {
@@ -28,6 +31,25 @@ namespace myGame.GameStates
         {
             if (!isInitialized)
             {
+                // Load and setup background
+                backgroundTexture = gameRef.Content.Load<Texture2D>("background3");
+                backgroundRects = new List<Rectangle>();
+                
+                // Calculate how many backgrounds we need to cover the level width
+                int totalWidth = 1920;  // Level width
+                int numBackgrounds = (totalWidth / BACKGROUND_WIDTH) + 2;  // +2 for smooth scrolling
+                
+                // Create rectangles for each background instance
+                for (int i = 0; i < numBackgrounds; i++)
+                {
+                    backgroundRects.Add(new Rectangle(
+                        i * BACKGROUND_WIDTH,  // X position
+                        0,                 // Y position (adjust to center vertically)
+                        BACKGROUND_WIDTH,      // Width of each background tile
+                        520                  // Height (adjust to fit your image)
+                    ));
+                }
+
                 // Initialize camera
                 camera = new Camera2D(
                     new Rectangle(0, 0, gameRef.GraphicsDevice.Viewport.Width, gameRef.GraphicsDevice.Viewport.Height),
@@ -140,19 +162,23 @@ namespace myGame.GameStates
 
             spriteBatch.Begin(transformMatrix: camera.TransformMatrix);
             
+            // Draw repeating backgrounds
+            foreach (var rect in backgroundRects)
+            {
+                spriteBatch.Draw(backgroundTexture, rect, Color.White);
+            }
+            
+            // Draw game elements
             levelManager.Map?.Draw(spriteBatch);
             
-            // Show portal for all levels including the final one
             if (levelManager.LevelPortal != null)
             {
                 levelManager.LevelPortal.Draw(spriteBatch);
             }
-
             foreach (var enemy in levelManager.Enemies)
             {
                 enemy.Draw(spriteBatch);
             }
-
             hero?.Draw(spriteBatch);
             
             spriteBatch.End();
