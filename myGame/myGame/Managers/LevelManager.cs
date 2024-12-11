@@ -97,6 +97,7 @@ namespace myGame.Managers
                 { 0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0 },
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
                 { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
+                
             };
             map.LoadMap(mapData, 64);
 
@@ -113,7 +114,6 @@ namespace myGame.Managers
         {
             float groundY = 5 * 64 - 30;
             enemies.Add(enemyFactory.CreateEnemy("patrol", new Vector2(300, groundY)));
-            enemies.Add(enemyFactory.CreateEnemy("crocodile", new Vector2(700, groundY)));
             enemies.Add(enemyFactory.CreateEnemy("aggressive", new Vector2(500, groundY)));
         }
 
@@ -124,7 +124,11 @@ namespace myGame.Managers
             enemies.Add(enemyFactory.CreateEnemy("patrol", new Vector2(700, groundY)));
             enemies.Add(enemyFactory.CreateEnemy("aggressive", new Vector2(1000, groundY)));
             enemies.Add(enemyFactory.CreateEnemy("crocodile", new Vector2(1200, groundY)));
-
+//             enemies.Add(new CrocodileEnemy(
+//     Game.Content.Load<Texture2D>("crocodile"), 
+//     new Vector2(x, y),
+//     200f  // Attack range
+// ));
         }
 
         private void SpawnEnemiesLevel3()
