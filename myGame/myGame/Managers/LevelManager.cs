@@ -113,6 +113,7 @@ namespace myGame.Managers
         {
             float groundY = 5 * 64 - 30;
             enemies.Add(enemyFactory.CreateEnemy("patrol", new Vector2(300, groundY)));
+            enemies.Add(enemyFactory.CreateEnemy("crocodile", new Vector2(700, groundY)));
             enemies.Add(enemyFactory.CreateEnemy("aggressive", new Vector2(500, groundY)));
         }
 
@@ -122,6 +123,8 @@ namespace myGame.Managers
             enemies.Add(enemyFactory.CreateEnemy("aggressive", new Vector2(300, groundY)));
             enemies.Add(enemyFactory.CreateEnemy("patrol", new Vector2(700, groundY)));
             enemies.Add(enemyFactory.CreateEnemy("aggressive", new Vector2(1000, groundY)));
+            enemies.Add(enemyFactory.CreateEnemy("crocodile", new Vector2(1200, groundY)));
+
         }
 
         private void SpawnEnemiesLevel3()

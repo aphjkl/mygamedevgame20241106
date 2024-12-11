@@ -31,6 +31,10 @@ namespace myGame.GameObjects.Enemies
                     position,
                     moveSpeed: 3f
                 ),
+                "crocodile" => new CrocodileEnemy(
+                    gameRef.Content.Load<Texture2D>("crocodile"),
+                    position
+                ),
                 _ => throw new ArgumentException("Unknown enemy type")
             };
         }

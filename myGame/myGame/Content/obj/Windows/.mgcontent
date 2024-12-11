@@ -5,7 +5,10 @@
   <Config />
   <SourceFiles>
     <File>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/myGame/myGame/Content/../../../../../../Pictures/Screenshots/Tile1.png</File>
+    <File>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/myGame/myGame/Content/background.png</File>
+    <File>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/myGame/myGame/Content/background2.png</File>
     <File>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/myGame/myGame/Content/castle-1.png</File>
+    <File>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/myGame/myGame/Content/crocodile.png</File>
     <File>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/myGame/myGame/Content/gameFont.spritefont</File>
     <File>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/myGame/myGame/Content/goldenCat.png</File>
     <File>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/myGame/myGame/Content/heart-icon123.png</File>
@@ -16,6 +19,9 @@
   </SourceFiles>
   <DestFiles>
     <File>Tile1.png</File>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
