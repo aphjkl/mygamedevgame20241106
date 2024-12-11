@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using myGame.GameObjects;
 using myGame.GameObjects.Enemies;
 using myGame.TileMap;
+using System;
 
 
 namespace myGame.Components
@@ -13,9 +14,17 @@ namespace myGame.Components
         private Vector2 position;
         private Vector2 velocity;
         private Rectangle bounds;
-        private float gravity = 0.5f;
-        private float jumpForce = -12f;
-        private float maxFallSpeed = 10f;
+        
+        // Movement constants
+        private const float MAX_SPEED = 8f;
+        private const float ACCELERATION = 0.4f;
+        private const float GROUND_FRICTION = 0.1f;
+        private const float AIR_RESISTANCE = 0.05f;
+        private const float BOUNCE_FACTOR = 0.5f;
+        
+        private const float gravity = 0.5f;
+        private const float jumpForce = -12f;
+        private const float maxFallSpeed = 10f;
         private bool isGrounded;
         private Rectangle collisionRectangle;
 
@@ -34,7 +43,21 @@ namespace myGame.Components
 
         public void Update(GameTime gameTime)
         {
-            // Apply gravity when not grounded
+            // Apply friction/deceleration
+            if (isGrounded)
+            {
+                // More friction on ground
+                velocity.X = MathHelper.Lerp(velocity.X, 0, GROUND_FRICTION);
+                if (Math.Abs(velocity.X) < 0.1f)
+                    velocity.X = 0;
+            }
+            else
+            {
+                // Less friction in air
+                velocity.X = MathHelper.Lerp(velocity.X, 0, AIR_RESISTANCE);
+            }
+
+            // Apply gravity
             if (!isGrounded)
             {
                 velocity.Y += gravity;
@@ -45,7 +68,7 @@ namespace myGame.Components
             // Apply velocity to position
             position += velocity;
 
-            // Update both rectangles
+            // Update collision bounds
             bounds.X = (int)position.X;
             bounds.Y = (int)position.Y;
             collisionRectangle = new Rectangle(
@@ -55,14 +78,17 @@ namespace myGame.Components
                 bounds.Height
             );
 
-            // Reset isGrounded - will be set true by collision check if needed
             isGrounded = false;
         }
 
         public void Move(Vector2 direction)
         {
-            direction.X *= 4; // Movement speed
-            position.X += direction.X;
+            // Apply acceleration in movement direction
+            if (direction.X != 0)
+            {
+                velocity.X += direction.X * ACCELERATION;
+                velocity.X = MathHelper.Clamp(velocity.X, -MAX_SPEED, MAX_SPEED);
+            }
         }
 
         public void Jump()
@@ -87,27 +113,37 @@ namespace myGame.Components
             {
                 position.Y = newRectangle.Y + newRectangle.Height;
                 bounds.Y = (int)position.Y;
-                velocity.Y = 1;
+                velocity.Y = -velocity.Y * BOUNCE_FACTOR; // Bounce off ceiling
             }
 
             if (bounds.TouchLeftOf(newRectangle))
             {
                 position.X = newRectangle.X - bounds.Width;
                 bounds.X = (int)position.X;
+                velocity.X = -velocity.X * BOUNCE_FACTOR; // Bounce off left wall
             }
             if (bounds.TouchRightOf(newRectangle))
             {
                 position.X = newRectangle.X + newRectangle.Width;
                 bounds.X = (int)position.X;
+                velocity.X = -velocity.X * BOUNCE_FACTOR; // Bounce off right wall
             }
 
-            // World bounds collision
-            if (position.X < 0) position.X = 0;
-            if (position.X > xOffset - bounds.Width) position.X = xOffset - bounds.Width;
+            // World bounds collision with bounce
+            if (position.X < 0)
+            {
+                position.X = 0;
+                velocity.X = -velocity.X * BOUNCE_FACTOR;
+            }
+            if (position.X > xOffset - bounds.Width)
+            {
+                position.X = xOffset - bounds.Width;
+                velocity.X = -velocity.X * BOUNCE_FACTOR;
+            }
             if (position.Y < 0)
             {
                 position.Y = 0;
-                velocity.Y = 0;
+                velocity.Y = -velocity.Y * BOUNCE_FACTOR;
             }
             if (position.Y > yOffset - bounds.Height)
             {

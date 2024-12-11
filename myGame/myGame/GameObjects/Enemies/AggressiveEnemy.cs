@@ -12,7 +12,7 @@ namespace myGame.GameObjects.Enemies
         private Vector2? targetPosition;
         private float patrolDistance = 200f;
 
-        public AggressiveEnemy(Texture2D texture, Vector2 startPosition, float moveSpeed = 3f, float detectionRange = 150f) 
+        public AggressiveEnemy(Texture2D texture, Vector2 startPosition, float moveSpeed = 3f, float detectionRange = 250f) 
             : base(texture, startPosition, moveSpeed)
         {
             this.detectionRange = detectionRange;
@@ -26,6 +26,17 @@ namespace myGame.GameObjects.Enemies
 
         protected override void UpdateBehavior(GameTime gameTime)
         {
+            if (isAttacking)
+            {
+                animation.Update(gameTime);
+                if (animation.IsAnimationComplete())
+                {
+                    isAttacking = false;
+                    InitializeAnimation();
+                }
+                return;
+            }
+
             if (targetPosition.HasValue)
             {
                 Vector2 direction = targetPosition.Value - position;
@@ -62,11 +73,22 @@ namespace myGame.GameObjects.Enemies
         protected override void InitializeAnimation()
         {
             animation = new Animatie();
-            // Use different sprite frames for aggressive enemy
+            // Walking animation frames
             animation.AddFrame(new AnimationFrame(new Rectangle(87, 1, 84, 91)));
             animation.AddFrame(new AnimationFrame(new Rectangle(173, 1, 84, 91)));
             animation.AddFrame(new AnimationFrame(new Rectangle(259, 1, 84, 91)));
             animation.AddFrame(new AnimationFrame(new Rectangle(345, 1, 84, 91)));
+        }
+
+        private void InitializeAttackAnimation()
+        {
+            animation = new Animatie();
+            // Attack animation frames
+            animation.AddFrame(new AnimationFrame(new Rectangle(1, 94, 84, 91)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(86, 92, 84, 91)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(1, 94, 84, 91)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(173, 94, 84, 91)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(259, 94, 84, 91)));
         }
 
         public void SetTarget(Vector2 target)
@@ -86,8 +108,10 @@ namespace myGame.GameObjects.Enemies
             SetTarget(playerPosition);
             
             // Only deal damage when very close (about half the detection range)
-            if (verticalDistance <= 30 && horizontalDistance <= detectionRange * 0.5f)
+            if (verticalDistance <= 30 && horizontalDistance <= detectionRange * 0.20f)
             {
+                isAttacking = true;
+                InitializeAttackAnimation();
                 return true;
             }
             
