@@ -16,9 +16,10 @@ namespace myGame.GameObjects.Enemies
             : base(texture, startPosition, moveSpeed)
         {
             this.detectionRange = detectionRange;
+            this.position = new Vector2(position.X, position.Y - 30);
             this.rectangle = new Rectangle(
                 (int)position.X + 10,
-                (int)position.Y,
+                (int)position.Y - 30,
                 64,
                 60
             );
@@ -65,7 +66,6 @@ namespace myGame.GameObjects.Enemies
             }
             
             rectangle.X = (int)position.X + 10;
-            rectangle.Y = (int)position.Y;
             
             animation.Update(gameTime);
         }

@@ -109,11 +109,11 @@ namespace myGame.Components
                 velocity.Y = 0;
                 isGrounded = true;
             }
-            else if (bounds.TouchBottomOf(newRectangle))
+            if (bounds.TouchBottomOf(newRectangle))
             {
-                position.Y = newRectangle.Y + newRectangle.Height;
-                bounds.Y = (int)position.Y;
-                velocity.Y = -velocity.Y * BOUNCE_FACTOR; // Bounce off ceiling
+                bounds.Y = newRectangle.Y + newRectangle.Height;
+                position.Y = bounds.Y;
+                velocity.Y = Math.Max(velocity.Y, 0.5f);  // Keep upward momentum but ensure downward movement
             }
 
             if (bounds.TouchLeftOf(newRectangle))
