@@ -112,14 +112,14 @@ namespace myGame.Managers
 
         private void SpawnEnemiesLevel1()
         {
-            float groundY = 5 * 64 - 30;
+            float groundY = 5 * (64/2) - 30;
             enemies.Add(enemyFactory.CreateEnemy("patrol", new Vector2(300, groundY)));
             enemies.Add(enemyFactory.CreateEnemy("aggressive", new Vector2(500, groundY)));
         }
 
         private void SpawnEnemiesLevel2()
         {
-            float groundY = 5 * 64 - 30;
+            float groundY = 5 * (64/2) - 30;
             enemies.Add(enemyFactory.CreateEnemy("aggressive", new Vector2(300, groundY)));
             enemies.Add(enemyFactory.CreateEnemy("patrol", new Vector2(700, groundY)));
             enemies.Add(enemyFactory.CreateEnemy("aggressive", new Vector2(1000, groundY)));
@@ -133,7 +133,7 @@ namespace myGame.Managers
 
         private void SpawnEnemiesLevel3()
         {
-            float groundY = 5 * 64 - 30;
+            float groundY = 5 * (64/2) - 30;
             enemies.Add(enemyFactory.CreateEnemy("aggressive", new Vector2(300, groundY)));
             enemies.Add(enemyFactory.CreateEnemy("patrol", new Vector2(500, groundY)));
             enemies.Add(enemyFactory.CreateEnemy("aggressive", new Vector2(700, groundY)));

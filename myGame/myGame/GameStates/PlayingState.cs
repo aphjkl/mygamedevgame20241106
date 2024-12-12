@@ -21,7 +21,7 @@ namespace myGame.GameStates
         private bool isInitialized = false;
         private Texture2D backgroundTexture;
         private List<Rectangle> backgroundRects;
-        private const int BACKGROUND_WIDTH = 300;  // Adjust this to match your image's width
+        private const int BACKGROUND_WIDTH = 400;  // Adjust this to match your image's width
 
         public PlayingState(Game1 game) : base(game)
         {
@@ -44,9 +44,9 @@ namespace myGame.GameStates
                 {
                     backgroundRects.Add(new Rectangle(
                         i * BACKGROUND_WIDTH,  // X position
-                        0,                 // Y position (adjust to center vertically)
+                        -300,                 // Y position (adjust to center vertically)
                         BACKGROUND_WIDTH,      // Width of each background tile
-                        520                  // Height (adjust to fit your image)
+                        820                  // Height (adjust to fit your image)
                     ));
                 }
 

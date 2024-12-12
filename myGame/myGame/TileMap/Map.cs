@@ -29,7 +29,7 @@ namespace myGame.TileMap
             this.tileSize = tileSize;
             
             Width = mapData.GetLength(1) * tileSize;
-            Height = mapData.GetLength(0) * tileSize;
+            Height = mapData.GetLength(0) * (tileSize / 2);
             
             GenerateTiles();
         }
@@ -47,7 +47,12 @@ namespace myGame.TileMap
                     {
                         tiles.Add(new CollisionTiles(
                             tileType, 
-                            new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize)
+                            new Rectangle(
+                                x * tileSize,
+                                y * (tileSize / 2),
+                                tileSize,
+                                tileSize / 2
+                            )
                         ));
                     }
                 }
