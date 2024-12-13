@@ -81,12 +81,21 @@ namespace myGame.Managers
             {
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-                { 0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-                { 0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0 },
+                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                { 0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0 },
+                { 0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1,1,0 },
+                { 0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0 },
+                { 0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
                 { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
             };
             map.LoadMap(mapData, 64);
+
+            Vector2 portalPosition = new Vector2(1700, 6 * 64 - PORTAL_HEIGHT);
+            levelPortal = new LevelPortal(gameRef.Content.Load<Texture2D>("castle-1"), portalPosition);
+
             SpawnEnemiesLevel2();
         }
 
@@ -95,28 +104,30 @@ namespace myGame.Managers
             int[,] mapData = new int[,]
             {
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-                { 0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-                { 0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-                { 0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0 },
+                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                { 0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0 },
+                { 0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0 },
+                { 0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0 },
+                { 0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0 },
+                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
                 { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
-                
             };
             map.LoadMap(mapData, 64);
 
-            Vector2 portalPosition = new Vector2(1700, 130);
-            levelPortal = new LevelPortal(
-                gameRef.Content.Load<Texture2D>("castle-1"),
-                portalPosition
-            );
+            Vector2 portalPosition = new Vector2(1650, 3 * 64+20 - PORTAL_HEIGHT);
+            levelPortal = new LevelPortal(gameRef.Content.Load<Texture2D>("castle-1"), portalPosition);
 
+            
             SpawnEnemiesLevel3();
         }
 
         private void SpawnEnemiesLevel1()
         {
-            float groundY = 10 * 64 - 30;
-            float platformY = 6 * 64 - 30;
+            float groundY = 10 * 64 - 347;  // Ground level (293)
+            float platformY = 6 * 64 - 347;  // Platform level
 
             enemies.Add(enemyFactory.CreateEnemy("crocodile", new Vector2(400, groundY)));
             enemies.Add(enemyFactory.CreateEnemy("patrol", new Vector2(800, groundY)));
@@ -125,26 +136,33 @@ namespace myGame.Managers
 
         private void SpawnEnemiesLevel2()
         {
-            float groundY = 5 * 64 - 30;
+            float groundY = 10 * 64 - 347;
+            float platformY1 = 7 * 64 - 347;  // Platform at row 7
+            float platformY2 = 6 * 64 - 347;  // Platform at row 6
+
+            // Ground-only enemies
             enemies.Add(enemyFactory.CreateEnemy("aggressive", new Vector2(300, groundY)));
-            enemies.Add(enemyFactory.CreateEnemy("patrol", new Vector2(700, groundY)));
-            enemies.Add(enemyFactory.CreateEnemy("aggressive", new Vector2(1000, groundY)));
-            enemies.Add(enemyFactory.CreateEnemy("crocodile", new Vector2(1200, groundY)));
-//             enemies.Add(new CrocodileEnemy(
-//     Game.Content.Load<Texture2D>("crocodile"), 
-//     new Vector2(x, y),
-//     200f  // Attack range
-// ));
+            enemies.Add(enemyFactory.CreateEnemy("aggressive", new Vector2(1500, groundY)));
+            
+            // Platform enemies
+            enemies.Add(enemyFactory.CreateEnemy("patrol", new Vector2(700, platformY1)));
+            enemies.Add(enemyFactory.CreateEnemy("crocodile", new Vector2(1400, platformY1)));
         }
 
         private void SpawnEnemiesLevel3()
         {
-            float groundY = 5 * 64 - 30;
+            float groundY = 10 * 64 - 347;
+            float platformY1 = 4 * 64 - 347;  // Platform at row 4 (where tiles exist at line 110)
+            float platformY2 = 5 * 64 - 347;  // Platform at row 5 (where tiles exist at line 111)
+
+            // Ground-only enemies
             enemies.Add(enemyFactory.CreateEnemy("aggressive", new Vector2(300, groundY)));
-            enemies.Add(enemyFactory.CreateEnemy("patrol", new Vector2(500, groundY)));
-            enemies.Add(enemyFactory.CreateEnemy("aggressive", new Vector2(700, groundY)));
-            enemies.Add(enemyFactory.CreateEnemy("patrol", new Vector2(900, groundY)));
-            enemies.Add(enemyFactory.CreateEnemy("aggressive", new Vector2(1100, groundY)));
+            enemies.Add(enemyFactory.CreateEnemy("aggressive", new Vector2(900, groundY)));
+            enemies.Add(enemyFactory.CreateEnemy("aggressive", new Vector2(1500, groundY)));
+            
+            // Platform enemies (matching actual platform locations in mapData)
+            enemies.Add(enemyFactory.CreateEnemy("patrol", new Vector2(800, platformY1)));     // On the 1,1 at row 4
+            enemies.Add(enemyFactory.CreateEnemy("crocodile", new Vector2(1300, platformY2))); // On the 1,1 at row 5
         }
     }
 } 
