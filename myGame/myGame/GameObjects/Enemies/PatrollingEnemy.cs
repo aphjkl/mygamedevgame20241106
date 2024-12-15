@@ -12,13 +12,31 @@ namespace myGame.GameObjects.Enemies
     public class PatrollingEnemy : BaseEnemy
     {
         private float patrolDistance;
-        private float attackRange;
 
         public PatrollingEnemy(Texture2D texture, Vector2 startPosition, float patrolDistance = 200f, float attackRange = 60f)
-            : base(texture, startPosition)
+            : base(texture, startPosition, 2f, attackRange)
         {
             this.patrolDistance = patrolDistance;
-            this.attackRange = attackRange;
+        }
+
+        protected override void InitializeAnimation()
+        {
+            animation = new Animatie();
+            animation.AddFrame(new AnimationFrame(new Rectangle(1, 62, 70, 60)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(151, 1, 74, 60)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(78, -1, 74, 60)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(1, 0, 74, 60)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(151, 1, 74, 60)));
+        }
+
+        protected override void InitializeAttackAnimation()
+        {
+            animation = new Animatie();
+            animation.AddFrame(new AnimationFrame(new Rectangle(82, 62, 74, 60)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(151, 62, 74, 60)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(78, 123, 74, 60)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(1, 123, 74, 60)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(78, 123, 74, 60)));
         }
 
         protected override void UpdateBehavior(GameTime gameTime)
@@ -50,16 +68,6 @@ namespace myGame.GameObjects.Enemies
             animation.Update(gameTime);
         }
 
-        protected override void InitializeAnimation()
-        {
-            animation = new Animatie();
-            animation.AddFrame(new AnimationFrame(new Rectangle(1, 62, 70, 60)));
-            animation.AddFrame(new AnimationFrame(new Rectangle(151, 1, 74, 60)));
-            animation.AddFrame(new AnimationFrame(new Rectangle(78, -1, 74, 60)));
-            animation.AddFrame(new AnimationFrame(new Rectangle(1, 0, 74, 60)));
-            animation.AddFrame(new AnimationFrame(new Rectangle(151, 1, 74, 60)));
-        }
-
         public override bool CheckPlayerInRange(Vector2 playerPosition)
         {
             if (isDying || isAttacking) return false;
@@ -77,16 +85,6 @@ namespace myGame.GameObjects.Enemies
                 return true;
             }
             return false;
-        }
-
-        private void InitializeAttackAnimation()
-        {
-            animation = new Animatie();
-            animation.AddFrame(new AnimationFrame(new Rectangle(82, 62, 74, 60)));
-            animation.AddFrame(new AnimationFrame(new Rectangle(151, 62, 74, 60)));
-            animation.AddFrame(new AnimationFrame(new Rectangle(78, 123, 74, 60)));
-            animation.AddFrame(new AnimationFrame(new Rectangle(1, 123, 74, 60)));
-            animation.AddFrame(new AnimationFrame(new Rectangle(78, 123, 74, 60)));
         }
     }
 }

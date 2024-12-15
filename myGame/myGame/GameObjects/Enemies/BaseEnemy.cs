@@ -20,19 +20,56 @@ namespace myGame.GameObjects.Enemies
         protected bool isAttacking;
         protected bool isDying;
         protected float deathTimer;
+        protected float attackRange;
 
-        public BaseEnemy(Texture2D texture, Vector2 startPosition, float moveSpeed = 2f)
+        public BaseEnemy(Texture2D texture, Vector2 startPosition, float moveSpeed = 2f, float attackRange = 60f)
         {
             this.texture = texture;
             this.position = new Vector2(startPosition.X, startPosition.Y - 30);
             this.startX = startPosition.X;
             this.moveSpeed = moveSpeed;
-            this.rectangle = new Rectangle((int)position.X, (int)position.Y, 74, 60);
+            this.attackRange = attackRange;
             InitializeAnimation();
         }
 
         protected abstract void InitializeAnimation();
-        protected abstract void UpdateBehavior(GameTime gameTime);
+        protected abstract void InitializeAttackAnimation();
+
+        protected virtual void UpdateBehavior(GameTime gameTime)
+        {
+            if (isAttacking)
+            {
+                animation.Update(gameTime);
+                if (animation.IsAnimationComplete())
+                {
+                    isAttacking = false;
+                    InitializeAnimation();
+                }
+                return;
+            }
+
+            animation.Update(gameTime);
+        }
+
+        public virtual bool CheckPlayerInRange(Vector2 playerPosition)
+        {
+            if (isDying || isAttacking) return false;
+
+            float horizontalDistance = Math.Abs(position.X - playerPosition.X);
+            float verticalDistance = Math.Abs(position.Y - playerPosition.Y);
+            
+            if (horizontalDistance <= attackRange && verticalDistance < 30)
+            {
+                if (!isAttacking)
+                {
+                    isAttacking = true;
+                    InitializeAttackAnimation();
+                    movingRight = playerPosition.X > position.X;
+                }
+                return true;
+            }
+            return false;
+        }
 
         public virtual void Update(GameTime gameTime)
         {
@@ -49,24 +86,22 @@ namespace myGame.GameObjects.Enemies
             rectangle.Y = (int)position.Y;
         }
 
+        public virtual void Draw(SpriteBatch spriteBatch)
+        {
+            if (texture == null || isDying) return;
+
+            SpriteEffects effect = movingRight ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            spriteBatch.Draw(texture, position, animation.CurrentFrame.SourceRectangle, 
+                Color.White, 0, Vector2.Zero, 1.0f, effect, 0);
+        }
+
         public Rectangle Bounds => rectangle;
         public bool IsDying => isDying;
 
         public virtual void OnBeingJumpedOn()
         {
             isDying = true;
-        }
-
-        public virtual void Draw(SpriteBatch spriteBatch)
-        {
-            SpriteEffects effect = movingRight ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-            spriteBatch.Draw(texture, position, animation.CurrentFrame.SourceRectangle, 
-                Color.White, 0, Vector2.Zero, 1.0f, effect, 0);
-        }
-
-        public virtual bool CheckPlayerInRange(Vector2 playerPosition)
-        {
-            return false; // Base implementation returns false, derived classes will override
+            deathTimer = 0.5f;
         }
 
         public Vector2 Position

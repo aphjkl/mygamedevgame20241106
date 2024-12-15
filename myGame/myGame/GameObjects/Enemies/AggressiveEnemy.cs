@@ -16,7 +16,6 @@ namespace myGame.GameObjects.Enemies
             : base(texture, startPosition, moveSpeed)
         {
             this.detectionRange = detectionRange;
-            this.position = new Vector2(position.X, position.Y - 30);
             this.rectangle = new Rectangle(
                 (int)position.X + 10,
                 (int)position.Y - 30,
@@ -25,27 +24,44 @@ namespace myGame.GameObjects.Enemies
             );
         }
 
+        protected override void InitializeAnimation()
+        {
+            animation = new Animatie();
+            animation.AddFrame(new AnimationFrame(new Rectangle(87, 1, 84, 91)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(173, 1, 84, 91)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(259, 1, 84, 91)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(345, 1, 84, 91)));
+        }
+
+        protected override void InitializeAttackAnimation()
+        {
+            animation = new Animatie();
+            animation.AddFrame(new AnimationFrame(new Rectangle(1, 94, 84, 91)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(86, 92, 84, 91)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(1, 94, 84, 91)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(173, 94, 84, 91)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(259, 94, 84, 91)));
+        }
+
         protected override void UpdateBehavior(GameTime gameTime)
         {
-            if (isAttacking)
+            base.UpdateBehavior(gameTime);
+            
+            if (!isAttacking)
             {
-                animation.Update(gameTime);
-                if (animation.IsAnimationComplete())
-                {
-                    isAttacking = false;
-                    InitializeAnimation();
-                }
-                return;
+                UpdateMovement();
             }
+        }
 
+        private void UpdateMovement()
+        {
             if (targetPosition.HasValue)
             {
                 Vector2 direction = targetPosition.Value - position;
                 if (direction.Length() > 0)
                 {
                     direction.Normalize();
-                    float newX = position.X + direction.X * moveSpeed;
-                    position.X = newX;
+                    position.X += direction.X * moveSpeed;
                     movingRight = direction.X > 0;
                 }
             }
@@ -64,57 +80,34 @@ namespace myGame.GameObjects.Enemies
                         movingRight = true;
                 }
             }
-            
-            rectangle.X = (int)position.X + 10;
-            
-            animation.Update(gameTime);
-        }
-
-        protected override void InitializeAnimation()
-        {
-            animation = new Animatie();
-            // Walking animation frames
-            animation.AddFrame(new AnimationFrame(new Rectangle(87, 1, 84, 91)));
-            animation.AddFrame(new AnimationFrame(new Rectangle(173, 1, 84, 91)));
-            animation.AddFrame(new AnimationFrame(new Rectangle(259, 1, 84, 91)));
-            animation.AddFrame(new AnimationFrame(new Rectangle(345, 1, 84, 91)));
-        }
-
-        private void InitializeAttackAnimation()
-        {
-            animation = new Animatie();
-            // Attack animation frames
-            animation.AddFrame(new AnimationFrame(new Rectangle(1, 94, 84, 91)));
-            animation.AddFrame(new AnimationFrame(new Rectangle(86, 92, 84, 91)));
-            animation.AddFrame(new AnimationFrame(new Rectangle(1, 94, 84, 91)));
-            animation.AddFrame(new AnimationFrame(new Rectangle(173, 94, 84, 91)));
-            animation.AddFrame(new AnimationFrame(new Rectangle(259, 94, 84, 91)));
-        }
-
-        public void SetTarget(Vector2 target)
-        {
-            float distance = Vector2.Distance(position, target);
-            targetPosition = distance <= detectionRange ? target : null;
         }
 
         public override bool CheckPlayerInRange(Vector2 playerPosition)
         {
             if (isDying || isAttacking) return false;
 
-            float verticalDistance = Math.Abs(position.Y - playerPosition.Y);
             float horizontalDistance = Math.Abs(position.X - playerPosition.X);
+            float verticalDistance = Math.Abs(position.Y - playerPosition.Y);
             
-            // Set target for chasing regardless of damage range
-            SetTarget(playerPosition);
-            
-            // Only deal damage when very close (about half the detection range)
-            if (verticalDistance <= 30 && horizontalDistance <= detectionRange * 0.20f)
+            if (horizontalDistance <= detectionRange && verticalDistance < 30)
             {
-                isAttacking = true;
-                InitializeAttackAnimation();
-                return true;
+                targetPosition = playerPosition;
+                
+                if (horizontalDistance <= attackRange)
+                {
+                    if (!isAttacking)
+                    {
+                        isAttacking = true;
+                        InitializeAttackAnimation();
+                        movingRight = playerPosition.X > position.X;
+                    }
+                    return true;
+                }
             }
-            
+            else
+            {
+                targetPosition = null;
+            }
             return false;
         }
     }
