@@ -6,7 +6,7 @@ namespace myGame.UI
 {
     public class WinScreen : UIScreen
     {
-        private UIButton menuButton;
+        private UIButton restartButton;
         private UIButton quitButton;
         private string winText = "Congratulations!\nYou Won!";
 
@@ -16,10 +16,10 @@ namespace myGame.UI
             int screenCenterX = graphicsDevice.Viewport.Width / 2;
             int screenCenterY = graphicsDevice.Viewport.Height / 2;
 
-            menuButton = new UIButton(
+            restartButton = new UIButton(
                 graphicsDevice,
                 new Rectangle(screenCenterX - 100, screenCenterY - 30, 200, 50),
-                "Main Menu",
+                "Restart",
                 font
             );
 
@@ -30,14 +30,14 @@ namespace myGame.UI
                 font
             );
 
-            buttons.Add(menuButton);
+            buttons.Add(restartButton);
             buttons.Add(quitButton);
         }
 
         public string HandleInput(MouseState mouseState)
         {
-            if (menuButton.IsClicked(mouseState))
-                return "menu";
+            if (restartButton.IsClicked(mouseState))
+                return "restart";
             if (quitButton.IsClicked(mouseState))
                 return "quit";
             return "none";
@@ -47,8 +47,8 @@ namespace myGame.UI
         {
             Vector2 textSize = font.MeasureString(winText);
             Vector2 textPosition = new Vector2(
-                menuButton.Bounds.X + 100 - (textSize.X / 2),
-                menuButton.Bounds.Y - 100
+                restartButton.Bounds.X + 100 - (textSize.X / 2),
+                restartButton.Bounds.Y - 100
             );
             spriteBatch.DrawString(font, winText, textPosition, Color.Gold);
             base.Draw(spriteBatch);

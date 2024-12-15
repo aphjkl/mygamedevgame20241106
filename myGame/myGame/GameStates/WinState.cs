@@ -26,13 +26,16 @@ namespace myGame.GameStates
             winScreen.Update(gameTime);
             string action = winScreen.HandleInput(Mouse.GetState());
 
-            if (action == "menu")
+            switch (action)
             {
-                gameRef.StateManager.SetState(GameState.Menu);
-            }
-            else if (action == "quit")
-            {
-                gameRef.Exit();
+                case "restart":
+                    var playingState = gameRef.StateManager.GetState("Playing") as PlayingState;
+                    playingState?.Restart();
+                    gameRef.StateManager.SetState(GameState.Playing);
+                    break;
+                case "quit":
+                    gameRef.Exit();
+                    break;
             }
         }
 

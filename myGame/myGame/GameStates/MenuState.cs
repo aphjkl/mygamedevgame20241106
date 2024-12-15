@@ -24,7 +24,7 @@ namespace myGame.GameStates
 
         public override void Enter()
         {
-            // Initialize menu state if needed
+            // Don't reset here anymore
         }
 
         public override void Exit()
@@ -37,6 +37,8 @@ namespace myGame.GameStates
             startScreen.Update(gameTime);
             if (startScreen.HandleInput(Mouse.GetState()))
             {
+                var playingState = gameRef.StateManager.GetState("Playing") as PlayingState;
+                playingState?.Restart();
                 gameRef.StateManager.SetState(GameState.Playing);
             }
         }

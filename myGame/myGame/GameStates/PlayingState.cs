@@ -194,6 +194,7 @@ namespace myGame.GameStates
             isInitialized = false;
             InitializeGameState();
             hero.Reset();
+            levelManager.InitializeLevel(1);  // Force reset to level 1
             camera.Follow(hero.Position);
         }
 
