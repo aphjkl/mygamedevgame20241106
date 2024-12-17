@@ -1,7 +1,8 @@
 using Microsoft.Xna.Framework;
 using System;
 
-namespace myGame.Components{
+namespace myGame.Components
+{
     public class HealthComponent
     {
         private int maxHealth;

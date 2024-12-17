@@ -1,8 +1,5 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using myGame.interfaces;
-using myGame.Animations;
-
 using myGame.Animations;
 using System;
 

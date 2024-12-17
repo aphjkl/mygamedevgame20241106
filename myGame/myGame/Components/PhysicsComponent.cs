@@ -1,6 +1,4 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using myGame.GameObjects;
 using myGame.GameObjects.Enemies;
 using myGame.TileMap;
 using System;

@@ -2,7 +2,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using myGame.UI;
-using System.Collections.Generic;
 
 namespace myGame.GameStates
 {

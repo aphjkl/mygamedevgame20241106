@@ -1,18 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using myGame.Animations;
-using myGame.Input;
-using myGame.interfaces;
-using myGame.TileMap;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
 using myGame.Components;
 using myGame.GameObjects.Enemies;
+using myGame.Input;
+using myGame.interfaces;
 
 namespace myGame.GameObjects
 {

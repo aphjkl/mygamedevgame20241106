@@ -1,14 +1,12 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using myGame.Camera;
 using myGame.GameObjects;
-using myGame.GameObjects.Enemies;
 using myGame.Input;
-using myGame.TileMap;
+using myGame.Managers;
 using myGame.UI;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework.Input;
-using myGame.Managers;
 
 namespace myGame.GameStates
 {

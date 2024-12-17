@@ -2,8 +2,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using myGame.Animations;
 using System.Collections.Generic;
-namespace myGame.Components{
-public class AnimationComponent
+namespace myGame.Components
+{
+    public class AnimationComponent
 {
     private Texture2D texture;
     private Animatie currentAnimation;
