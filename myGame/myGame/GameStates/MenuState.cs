@@ -23,12 +23,10 @@ namespace myGame.GameStates
 
         public override void Enter()
         {
-            // Don't reset here anymore
         }
 
         public override void Exit()
         {
-            // Cleanup menu state if needed
         }
 
         public override void Update(GameTime gameTime)

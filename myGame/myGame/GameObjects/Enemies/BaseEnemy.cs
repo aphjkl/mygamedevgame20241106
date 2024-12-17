@@ -79,7 +79,6 @@ namespace myGame.GameObjects.Enemies
 
             UpdateBehavior(gameTime);
 
-            // Update rectangle position
             rectangle.X = (int)position.X;
             rectangle.Y = (int)position.Y;
         }
@@ -113,6 +112,5 @@ namespace myGame.GameObjects.Enemies
             }
         }
 
-        // Other common methods...
     }
 }

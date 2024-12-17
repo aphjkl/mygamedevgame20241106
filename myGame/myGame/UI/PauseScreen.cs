@@ -56,12 +56,10 @@ namespace myGame.UI
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            // Semi-transparent black background
             Texture2D pixel = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
             pixel.SetData(new[] { Color.Black * 0.7f });
             spriteBatch.Draw(pixel, spriteBatch.GraphicsDevice.Viewport.Bounds, Color.White);
 
-            // Draw pause text
             Vector2 textSize = font.MeasureString(pauseText);
             Vector2 textPosition = new Vector2(
                 resumeButton.Bounds.X + 100 - (textSize.X / 2),

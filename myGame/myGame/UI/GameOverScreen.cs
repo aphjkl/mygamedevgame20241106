@@ -45,7 +45,6 @@ namespace myGame.UI
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            // Draw "Game Over" text
             Vector2 textSize = font.MeasureString(gameOverText);
             Vector2 textPosition = new Vector2(
                 replayButton.Bounds.X + 100 - (textSize.X / 2),
@@ -53,7 +52,6 @@ namespace myGame.UI
             );
             spriteBatch.DrawString(font, gameOverText, textPosition, Color.Red);
 
-            // Draw buttons using base class method
             base.Draw(spriteBatch);
         }
     }

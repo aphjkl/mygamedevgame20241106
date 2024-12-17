@@ -22,11 +22,9 @@ namespace myGame.Camera
 
         public void Follow(Vector2 target)
         {
-            // Center the camera on the target
             position.X = target.X - (viewport.Width / 2);
             position.Y = target.Y - (viewport.Height / 2);
             
-            // Keep camera within world bounds
             position.X = MathHelper.Clamp(position.X, 0, worldBounds.Width - viewport.Width);
             position.Y = MathHelper.Clamp(position.Y, 0, worldBounds.Height - viewport.Height);
         }

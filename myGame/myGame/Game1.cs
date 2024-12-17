@@ -1,14 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using myGame.Input;
-using myGame.TileMap;
-using myGame.Camera;
 using myGame.GameStates;
-using System.Collections.Generic;
-using myGame.GameObjects;
-
-using myGame.UI;
 
 namespace myGame
 {

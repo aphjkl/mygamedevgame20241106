@@ -24,7 +24,6 @@ namespace myGame.UI
             this.buttonColor = Color.DarkGray;
             this.textColor = Color.White;
 
-            // Create button texture
             texture = new Texture2D(graphicsDevice, 1, 1);
             texture.SetData(new[] { Color.White });
         }
@@ -34,7 +33,7 @@ namespace myGame.UI
             isHovered = bounds.Contains(mouseState.Position);
             if (isHovered)
             {
-                buttonColor = Color.Gray; // Lighten when hovered
+                buttonColor = Color.Gray;
             }
             else
             {

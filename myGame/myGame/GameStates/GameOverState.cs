@@ -41,12 +41,10 @@ namespace myGame.GameStates
 
         public override void Enter()
         {
-            // Initialize game over state if needed
         }
 
         public override void Exit()
         {
-            // Cleanup if needed
         }
     }
 }

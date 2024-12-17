@@ -11,7 +11,6 @@ namespace myGame.UI
         public StartScreen(GraphicsDevice graphicsDevice, SpriteFont font)
             : base(new SpriteBatch(graphicsDevice), font)
         {
-            // Create start button centered on screen
             startButton = new UIButton(
                 graphicsDevice,
                 new Rectangle(

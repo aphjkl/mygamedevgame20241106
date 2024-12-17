@@ -160,13 +160,11 @@ namespace myGame.GameStates
 
             spriteBatch.Begin(transformMatrix: camera.TransformMatrix);
             
-            // Draw repeating backgrounds
             foreach (var rect in backgroundRects)
             {
                 spriteBatch.Draw(backgroundTexture, rect, Color.White);
             }
             
-            // Draw game elements
             levelManager.Map?.Draw(spriteBatch);
             
             if (levelManager.LevelPortal != null)
@@ -181,7 +179,6 @@ namespace myGame.GameStates
             
             spriteBatch.End();
 
-            // UI elements
             spriteBatch.Begin();
             healthDisplay?.Draw(spriteBatch, hero.Health);
             spriteBatch.End();
@@ -192,7 +189,7 @@ namespace myGame.GameStates
             isInitialized = false;
             InitializeGameState();
             hero.Reset();
-            levelManager.InitializeLevel(1);  // Force reset to level 1
+            levelManager.InitializeLevel(1); 
             camera.Follow(hero.Position);
         }
 
@@ -203,7 +200,6 @@ namespace myGame.GameStates
 
         public override void Exit()
         {
-            // Cleanup if needed
         }
     }
 }

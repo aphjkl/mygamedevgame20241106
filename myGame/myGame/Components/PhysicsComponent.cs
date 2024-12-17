@@ -168,7 +168,6 @@ namespace myGame.Components
                 float enemyBottom = enemyBounds.Bottom;
                 float verticalOverlap = heroBottom - enemyTop;
                 
-                // More precise jump-on detection
                 if (velocity.Y > 0 && verticalOverlap <= 15 && heroTop < enemyTop)
                 {
                     velocity.Y = jumpForce * 0.7f;

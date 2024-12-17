@@ -60,12 +60,11 @@ namespace myGame.Components
 
     public void Update(GameTime gameTime, bool isMoving, bool isInAir, bool wasInAir)
     {
-        // Handle jump/land animations
         if (isInAir)
         {
             PlayAnimation("jump");
         }
-        else if (wasInAir) // Just landed
+        else if (wasInAir)
         {
             PlayAnimation("land");
             if (currentAnimation.IsAnimationComplete())
@@ -73,7 +72,7 @@ namespace myGame.Components
                 PlayAnimation(isMoving ? "walk" : "idle");
             }
         }
-        else // Normal ground animations
+        else 
         {
             PlayAnimation(isMoving ? "walk" : "idle");
         }
