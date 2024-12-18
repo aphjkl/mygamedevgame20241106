@@ -152,17 +152,16 @@ namespace myGame.Managers
         private void SpawnEnemiesLevel3()
         {
             float groundY = 10 * 64 - 347;
-            float platformY1 = 4 * 64 - 347;  // Platform at row 4 (where tiles exist at line 110)
-            float platformY2 = 5 * 64 - 347;  // Platform at row 5 (where tiles exist at line 111)
-
+            float platformY1 = 4 * 64 - 347;  
+            float platformY2 = 7 * 64 - 347;  
             // Ground-only enemies
             enemies.Add(enemyFactory.CreateEnemy("aggressive", new Vector2(300, groundY)));
             enemies.Add(enemyFactory.CreateEnemy("aggressive", new Vector2(900, groundY)));
             enemies.Add(enemyFactory.CreateEnemy("aggressive", new Vector2(1500, groundY)));
             
             // Platform enemies (matching actual platform locations in mapData)
-            enemies.Add(enemyFactory.CreateEnemy("patrol", new Vector2(800, platformY1)));     // On the 1,1 at row 4
-            enemies.Add(enemyFactory.CreateEnemy("crocodile", new Vector2(1300, platformY2))); // On the 1,1 at row 5
+            enemies.Add(enemyFactory.CreateEnemy("patrol", new Vector2(800, platformY1)));     
+            enemies.Add(enemyFactory.CreateEnemy("crocodile", new Vector2(1400, platformY2))); 
         }
     }
 } 
