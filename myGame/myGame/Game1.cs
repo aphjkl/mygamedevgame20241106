@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using myGame.GameStates;
 
 namespace myGame
@@ -12,6 +13,7 @@ namespace myGame
         private GameStateManager stateManager;
         private SpriteFont font;
         private KeyboardState previousKeyboardState;
+        private Song backgroundMusic;
 
         public GameStateManager StateManager => stateManager;
 
@@ -44,6 +46,12 @@ namespace myGame
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("gameFont");
             Services.AddService(font);
+            backgroundMusic = Content.Load<Song>("006");
+            
+            
+            MediaPlayer.Play(backgroundMusic);
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Volume = 0.5f; 
         }
 
         protected override void Update(GameTime gameTime)

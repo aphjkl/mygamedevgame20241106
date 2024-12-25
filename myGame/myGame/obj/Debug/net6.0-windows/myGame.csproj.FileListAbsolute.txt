@@ -90,3 +90,5 @@ C:\Users\adam\apschool\GameDev\mygamedevgame20241106\MyGame\myGame\bin\Debug\net
 C:\Users\adam\apschool\GameDev\mygamedevgame20241106\MyGame\myGame\bin\Debug\net6.0-windows\Content\background.xnb
 C:\Users\adam\apschool\GameDev\mygamedevgame20241106\MyGame\myGame\bin\Debug\net6.0-windows\Content\background2.xnb
 C:\Users\adam\apschool\GameDev\mygamedevgame20241106\MyGame\myGame\bin\Debug\net6.0-windows\Content\background3.xnb
+C:\Users\adam\apschool\GameDev\mygamedevgame20241106\MyGame\myGame\bin\Debug\net6.0-windows\Content\006.wma
+C:\Users\adam\apschool\GameDev\mygamedevgame20241106\MyGame\myGame\bin\Debug\net6.0-windows\Content\006.xnb

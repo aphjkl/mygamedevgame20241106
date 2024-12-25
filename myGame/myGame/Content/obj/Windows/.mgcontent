@@ -4,6 +4,7 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/myGame/myGame/Content/006.ogg</File>
     <File>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/myGame/myGame/Content/background.png</File>
     <File>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/myGame/myGame/Content/background2.png</File>
     <File>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/myGame/myGame/Content/background3.png</File>
@@ -18,6 +19,7 @@
     <File>C:/Users/adam/apschool/GameDev/mygamedevgame20241106/myGame/myGame/Content/Tile2.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
