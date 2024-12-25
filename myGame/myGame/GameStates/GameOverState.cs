@@ -25,12 +25,12 @@ namespace myGame.GameStates
         {
             gameOverScreen.Update(gameTime);
             string action = gameOverScreen.HandleInput(Mouse.GetState());
-            
+
             if (action == "replay")
             {
                 var playingState = gameRef.StateManager.GetState("Playing") as PlayingState;
                 playingState?.Restart();
-                
+
                 gameRef.StateManager.SetState(GameState.Playing);
             }
             else if (action == "quit")

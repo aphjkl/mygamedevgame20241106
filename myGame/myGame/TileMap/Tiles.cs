@@ -10,17 +10,17 @@ namespace myGame.TileMap
         private Rectangle rectangle;
         private static ContentManager content;
 
-        
-        public static ContentManager Content 
+
+        public static ContentManager Content
         {
             protected get { return content; }
-            set { content = value; } 
+            set { content = value; }
         }
 
         public Rectangle Rectangle
         {
-             get { return rectangle; }
-            protected set { rectangle = value; } 
+            get { return rectangle; }
+            protected set { rectangle = value; }
         }
 
         public void Draw(SpriteBatch spriteBatch)

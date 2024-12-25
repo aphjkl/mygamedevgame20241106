@@ -21,8 +21,8 @@ namespace myGame.GameStates
 
             pauseScreen.Update(gameTime);
             string action = pauseScreen.HandleInput(Mouse.GetState());
-            
-            if (currentKeyboardState.IsKeyDown(Keys.Escape) && 
+
+            if (currentKeyboardState.IsKeyDown(Keys.Escape) &&
                 previousKeyboardState.IsKeyUp(Keys.Escape))
             {
                 gameRef.StateManager.SetState(GameState.Playing);
@@ -66,4 +66,4 @@ namespace myGame.GameStates
 
         public override void Exit() { }
     }
-} 
+}

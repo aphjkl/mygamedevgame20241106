@@ -18,17 +18,17 @@ namespace myGame
         public GameStateManager StateManager => stateManager;
 
         public Game1()
-{
-    _graphics = new GraphicsDeviceManager(this);
-    Content.RootDirectory = "Content";
-    IsMouseVisible = true;
-    stateManager = new GameStateManager(this);
-}
+        {
+            _graphics = new GraphicsDeviceManager(this);
+            Content.RootDirectory = "Content";
+            IsMouseVisible = true;
+            stateManager = new GameStateManager(this);
+        }
 
         protected override void Initialize()
         {
             myGame.TileMap.Tiles.Content = Content;
-            
+
             previousKeyboardState = Keyboard.GetState();
             base.Initialize();
 
@@ -37,7 +37,7 @@ namespace myGame
             stateManager.AddState(GameState.GameOver.ToString(), new GameOverState(this));
             stateManager.AddState(GameState.Pause.ToString(), new PauseState(this));
             stateManager.AddState(GameState.Win.ToString(), new WinState(this));
-            
+
             stateManager.SwitchState(GameState.Menu.ToString());
         }
 
@@ -47,11 +47,11 @@ namespace myGame
             font = Content.Load<SpriteFont>("gameFont");
             Services.AddService(font);
             backgroundMusic = Content.Load<Song>("006");
-            
-            
+
+
             MediaPlayer.Play(backgroundMusic);
             MediaPlayer.IsRepeating = true;
-            MediaPlayer.Volume = 0.5f; 
+            MediaPlayer.Volume = 0.5f;
         }
 
         protected override void Update(GameTime gameTime)
@@ -63,8 +63,8 @@ namespace myGame
                 Exit();
             }
 
-            if (stateManager.CurrentState == GameState.Playing && 
-                currentKeyboardState.IsKeyDown(Keys.Escape) && 
+            if (stateManager.CurrentState == GameState.Playing &&
+                currentKeyboardState.IsKeyDown(Keys.Escape) &&
                 previousKeyboardState.IsKeyUp(Keys.Escape))
             {
                 stateManager.SetState(GameState.Pause);

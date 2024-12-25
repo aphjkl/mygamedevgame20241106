@@ -12,7 +12,7 @@ namespace myGame.GameObjects.Enemies
         private Vector2? targetPosition;
         private float patrolDistance = 200f;
 
-        public AggressiveEnemy(Texture2D texture, Vector2 startPosition, float moveSpeed = 3f, float detectionRange = 250f) 
+        public AggressiveEnemy(Texture2D texture, Vector2 startPosition, float moveSpeed = 3f, float detectionRange = 250f)
             : base(texture, startPosition, moveSpeed)
         {
             this.detectionRange = detectionRange;
@@ -46,7 +46,7 @@ namespace myGame.GameObjects.Enemies
         protected override void UpdateBehavior(GameTime gameTime)
         {
             base.UpdateBehavior(gameTime);
-            
+
             if (!isAttacking)
             {
                 UpdateMovement();
@@ -88,11 +88,11 @@ namespace myGame.GameObjects.Enemies
 
             float horizontalDistance = Math.Abs(position.X - playerPosition.X);
             float verticalDistance = Math.Abs(position.Y - playerPosition.Y);
-            
+
             if (horizontalDistance <= detectionRange && verticalDistance < 30)
             {
                 targetPosition = playerPosition;
-                
+
                 if (horizontalDistance <= attackRange)
                 {
                     if (!isAttacking)
@@ -111,4 +111,4 @@ namespace myGame.GameObjects.Enemies
             return false;
         }
     }
-} 
+}

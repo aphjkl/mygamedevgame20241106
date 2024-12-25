@@ -8,7 +8,7 @@ namespace myGame.Camera
         private float zoom;
         private Rectangle viewport;
         private Rectangle worldBounds;
-        
+
         public Matrix Transform { get; private set; }
         public Matrix TransformMatrix { get; private set; }
 
@@ -24,7 +24,7 @@ namespace myGame.Camera
         {
             position.X = target.X - (viewport.Width / 2);
             position.Y = target.Y - (viewport.Height / 2);
-            
+
             position.X = MathHelper.Clamp(position.X, 0, worldBounds.Width - viewport.Width);
             position.Y = MathHelper.Clamp(position.Y, 0, worldBounds.Height - viewport.Height);
         }
@@ -34,4 +34,4 @@ namespace myGame.Camera
             TransformMatrix = Matrix.CreateTranslation(new Vector3(-position, 0.0f));
         }
     }
-} 
+}

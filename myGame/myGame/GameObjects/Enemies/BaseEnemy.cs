@@ -55,7 +55,7 @@ namespace myGame.GameObjects.Enemies
 
             float horizontalDistance = Math.Abs(position.X - playerPosition.X);
             float verticalDistance = Math.Abs(position.Y - playerPosition.Y);
-            
+
             if (horizontalDistance <= attackRange && verticalDistance < 30)
             {
                 if (!isAttacking)
@@ -88,7 +88,7 @@ namespace myGame.GameObjects.Enemies
             if (texture == null || isDying) return;
 
             SpriteEffects effect = movingRight ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-            spriteBatch.Draw(texture, position, animation.CurrentFrame.SourceRectangle, 
+            spriteBatch.Draw(texture, position, animation.CurrentFrame.SourceRectangle,
                 Color.White, 0, Vector2.Zero, 1.0f, effect, 0);
         }
 
@@ -104,8 +104,8 @@ namespace myGame.GameObjects.Enemies
         public Vector2 Position
         {
             get => position;
-            set 
-            { 
+            set
+            {
                 position = value;
                 rectangle.X = (int)position.X;
                 rectangle.Y = (int)position.Y;

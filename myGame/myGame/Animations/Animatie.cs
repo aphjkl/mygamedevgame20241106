@@ -25,13 +25,13 @@ namespace myGame.Animations
         {
             CurrentFrame = frames[counter];
             frameMovement += CurrentFrame.SourceRectangle.Width * gameTime.ElapsedGameTime.TotalSeconds;
-            if (frameMovement >= CurrentFrame.SourceRectangle.Width/5)
+            if (frameMovement >= CurrentFrame.SourceRectangle.Width / 5)
             {
                 counter++;
                 frameMovement = 0;
             }
 
-            if (counter>=frames.Count)
+            if (counter >= frames.Count)
             {
                 counter = 0;
             }

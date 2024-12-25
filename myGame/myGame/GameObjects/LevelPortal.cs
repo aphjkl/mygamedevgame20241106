@@ -8,18 +8,18 @@ namespace myGame.GameObjects
         private Rectangle bounds;
         private Texture2D texture;
         private float activationTimer = 0f;
-        private const float ACTIVATION_TIME = 1.5f; 
+        private const float ACTIVATION_TIME = 1.5f;
         private bool isPlayerInPortal = false;
-        private const int PORTAL_WIDTH = 200;  
-        private const int PORTAL_HEIGHT = 200; 
+        private const int PORTAL_WIDTH = 200;
+        private const int PORTAL_HEIGHT = 200;
 
         public LevelPortal(Texture2D texture, Vector2 position)
         {
             this.texture = texture;
             bounds = new Rectangle(
-                (int)position.X, 
-                (int)position.Y, 
-                PORTAL_WIDTH, 
+                (int)position.X,
+                (int)position.Y,
+                PORTAL_WIDTH,
                 PORTAL_HEIGHT
             );
         }
@@ -27,7 +27,7 @@ namespace myGame.GameObjects
         public void Update(GameTime gameTime, Rectangle playerBounds)
         {
             isPlayerInPortal = bounds.Intersects(playerBounds);
-            
+
             if (isPlayerInPortal)
             {
                 activationTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -46,4 +46,4 @@ namespace myGame.GameObjects
 
         public bool IsActivated => activationTimer >= ACTIVATION_TIME;
     }
-} 
+}

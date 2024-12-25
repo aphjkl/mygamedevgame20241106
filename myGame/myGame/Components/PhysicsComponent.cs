@@ -12,14 +12,14 @@ namespace myGame.Components
         private Vector2 position;
         private Vector2 velocity;
         private Rectangle bounds;
-        
+
         // Movement constants
         private const float MAX_SPEED = 8f;
         private const float ACCELERATION = 0.4f;
         private const float GROUND_FRICTION = 0.1f;
         private const float AIR_RESISTANCE = 0.05f;
         private const float BOUNCE_FACTOR = 0.5f;
-        
+
         private const float gravity = 0.5f;
         private const float jumpForce = -12f;
         private const float maxFallSpeed = 10f;
@@ -167,7 +167,7 @@ namespace myGame.Components
                 float heroTop = bounds.Top;
                 float enemyBottom = enemyBounds.Bottom;
                 float verticalOverlap = heroBottom - enemyTop;
-                
+
                 if (velocity.Y > 0 && verticalOverlap <= 15 && heroTop < enemyTop)
                 {
                     velocity.Y = jumpForce * 0.7f;

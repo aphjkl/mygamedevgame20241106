@@ -71,10 +71,10 @@ namespace myGame.GameObjects.Enemies
 
             float verticalDistance = Math.Abs(position.Y - playerPosition.Y);
             float horizontalDistance = Math.Abs(position.X - playerPosition.X);
-            
-            bool isPlayerInFront = (movingRight && playerPosition.X > position.X) || 
+
+            bool isPlayerInFront = (movingRight && playerPosition.X > position.X) ||
                                   (!movingRight && playerPosition.X < position.X);
-            
+
             if (horizontalDistance <= attackRange && verticalDistance < 30 && isPlayerInFront)
             {
                 isAttacking = true;

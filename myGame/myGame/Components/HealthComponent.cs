@@ -65,5 +65,5 @@ namespace myGame.Components
             isInvulnerable = true;
             invulnerabilityTimer = duration;
         }
-    } 
+    }
 }

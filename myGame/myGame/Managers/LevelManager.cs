@@ -117,10 +117,10 @@ namespace myGame.Managers
             };
             map.LoadMap(mapData, 64);
 
-            Vector2 portalPosition = new Vector2(1650, 3 * 64+20 - PORTAL_HEIGHT);
+            Vector2 portalPosition = new Vector2(1650, 3 * 64 + 20 - PORTAL_HEIGHT);
             levelPortal = new LevelPortal(gameRef.Content.Load<Texture2D>("castle-1"), portalPosition);
 
-            
+
             SpawnEnemiesLevel3();
         }
 
@@ -143,7 +143,7 @@ namespace myGame.Managers
             // Ground-only enemies
             enemies.Add(enemyFactory.CreateEnemy("aggressive", new Vector2(300, groundY)));
             enemies.Add(enemyFactory.CreateEnemy("aggressive", new Vector2(1500, groundY)));
-            
+
             // Platform enemies
             enemies.Add(enemyFactory.CreateEnemy("patrol", new Vector2(700, platformY1)));
             enemies.Add(enemyFactory.CreateEnemy("crocodile", new Vector2(1400, platformY1)));
@@ -152,16 +152,16 @@ namespace myGame.Managers
         private void SpawnEnemiesLevel3()
         {
             float groundY = 10 * 64 - 347;
-            float platformY1 = 4 * 64 - 347;  
-            float platformY2 = 7 * 64 - 347;  
+            float platformY1 = 4 * 64 - 347;
+            float platformY2 = 7 * 64 - 347;
             // Ground-only enemies
             enemies.Add(enemyFactory.CreateEnemy("aggressive", new Vector2(300, groundY)));
             enemies.Add(enemyFactory.CreateEnemy("aggressive", new Vector2(900, groundY)));
             enemies.Add(enemyFactory.CreateEnemy("aggressive", new Vector2(1500, groundY)));
-            
+
             // Platform enemies (matching actual platform locations in mapData)
-            enemies.Add(enemyFactory.CreateEnemy("patrol", new Vector2(800, platformY1)));     
-            enemies.Add(enemyFactory.CreateEnemy("crocodile", new Vector2(1400, platformY2))); 
+            enemies.Add(enemyFactory.CreateEnemy("patrol", new Vector2(800, platformY1)));
+            enemies.Add(enemyFactory.CreateEnemy("crocodile", new Vector2(1400, platformY2)));
         }
     }
-} 
+}

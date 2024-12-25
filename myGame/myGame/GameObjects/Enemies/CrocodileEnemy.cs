@@ -6,7 +6,7 @@ namespace myGame.GameObjects.Enemies
 {
     public class CrocodileEnemy : BaseEnemy
     {
-        public CrocodileEnemy(Texture2D texture, Vector2 startPosition, float attackRange = 60f) 
+        public CrocodileEnemy(Texture2D texture, Vector2 startPosition, float attackRange = 60f)
             : base(texture, startPosition, 0f, attackRange)
         {
             this.rectangle = new Rectangle(

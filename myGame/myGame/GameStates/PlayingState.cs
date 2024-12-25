@@ -32,11 +32,11 @@ namespace myGame.GameStates
                 // Load and setup background
                 backgroundTexture = gameRef.Content.Load<Texture2D>("background3");
                 backgroundRects = new List<Rectangle>();
-                
+
                 // Calculate how many backgrounds we need to cover the level width
                 int totalWidth = 1920;  // Level width
                 int numBackgrounds = (totalWidth / BACKGROUND_WIDTH) + 2;  // +2 for smooth scrolling
-                
+
                 // Create rectangles for each background instance
                 for (int i = 0; i < numBackgrounds; i++)
                 {
@@ -66,7 +66,7 @@ namespace myGame.GameStates
                     healthPosition,
                     3
                 );
-                
+
                 isInitialized = true;
             }
         }
@@ -86,7 +86,7 @@ namespace myGame.GameStates
             }
 
             hero.Update(gameTime);
-            
+
             // Update portal
             if (levelManager.CurrentLevel < LevelManager.MAX_LEVELS && levelManager.LevelPortal != null)
             {
@@ -159,14 +159,14 @@ namespace myGame.GameStates
             if (!isInitialized) return;
 
             spriteBatch.Begin(transformMatrix: camera.TransformMatrix);
-            
+
             foreach (var rect in backgroundRects)
             {
                 spriteBatch.Draw(backgroundTexture, rect, Color.White);
             }
-            
+
             levelManager.Map?.Draw(spriteBatch);
-            
+
             if (levelManager.LevelPortal != null)
             {
                 levelManager.LevelPortal.Draw(spriteBatch);
@@ -176,7 +176,7 @@ namespace myGame.GameStates
                 enemy.Draw(spriteBatch);
             }
             hero?.Draw(spriteBatch);
-            
+
             spriteBatch.End();
 
             spriteBatch.Begin();
@@ -189,7 +189,7 @@ namespace myGame.GameStates
             isInitialized = false;
             InitializeGameState();
             hero.Reset();
-            levelManager.InitializeLevel(1); 
+            levelManager.InitializeLevel(1);
             camera.Follow(hero.Position);
         }
 
